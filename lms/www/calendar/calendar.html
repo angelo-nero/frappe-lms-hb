@@ -1,0 +1,110 @@
+{% extends "lms/templates/lms_base.html" %}
+{% block title %}
+Mon profil
+{% endblock %}
+
+{% block page_content %}
+<svg id="frappe-symbols" aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+    <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="icon-users">
+        <path
+            d="M17.727 18.728H20a1 1 0 0 0 1-1v-2.537a.818.818 0 0 0-.515-.76l-3.061-1.226a.819.819 0 0 1-.515-.758v-.718a3.258 3.258 0 0 0 1.636-2.82V7.274a3.272 3.272 0 0 0-4.909-2.835m.304 10.811l-3.062-1.227a.818.818 0 0 1-.514-.758v-.369c2.675-.357 3.272-1.532 3.272-1.532S12 9.728 12 8.092a3.273 3.273 0 1 0-6.545 0c0 1.636-1.637 3.272-1.637 3.272s.597 1.175 3.273 1.532v.37a.818.818 0 0 1-.515.758l-3.061 1.228a.819.819 0 0 0-.515.757v1.72a1 1 0 0 0 1 1h9.454a1 1 0 0 0 1-1v-1.72a.818.818 0 0 0-.514-.759z"
+            stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+
+    <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="icon-education">
+        <path d="M12 5.625V14" stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="round"></path>
+        <path
+            d="M14.125 3.5C12.951 3.5 12 4.45 12 5.625 12 4.451 11.05 3.5 9.875 3.5H4.5a1 1 0 0 0-1 1v11.875a2 2 0 0 0 2 2h4.375c1.174 0 2.125.95 2.125 2.125 0-1.174.95-2.125 2.125-2.125H18.5a2 2 0 0 0 2-2V4.5a1 1 0 0 0-1-1h-5.375z"
+            stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="square"></path>
+    </symbol>
+
+</svg>
+<div class="app-logo" style="display: none;"></div>
+<nav class="navbar navbar-light navbar-expand-lg" style="display: block !important;">
+    <div class="container">
+        <div class="lp-logo">
+            <img src="/files/logo_academy.png" alt="cosumar logo">
+        </div>
+        <a class="navbar-brand" href="/parcours"><span>BIENVENUE {{ member.full_name }} !</span>
+            <span>Que souhaitez-vous apprendre aujourd'hui ?</span></a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="mr-auto navbar-nav">
+            </ul>
+            <ul class="ml-auto navbar-nav">
+                <!-- post login tools -->
+                <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login">
+                    <a class="nav-link nav-avatar" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <span class="user-image-wrapper"><span class="avatar avatar-medium filterable" title="ismail"
+                                data-filter="_assign,like,%null%">
+                                <div class="avatar-frame standard-image"
+                                    style="background-color: var(--purple-avatar-bg); color: var(--purple-avatar-color)">
+                                    i
+                                </div>
+                            </span></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" href="/me"
+                            rel="nofollow">
+                            My Account
+                        </a><a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
+                            Log out
+                        </a><a class="dropdown-item switch-to-desk" href="/app">Switch To Desk</a>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-login-area" href="/login" style="display: none;">Login</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group mb-0 hide" id="language-switcher">
+            <select class="form-control"></select>
+        </div>
+    </div>
+    <div class="recap">
+        {% for info in recap_data %}
+        <div class="info-container">
+            <img src="files/img-{{info[0]}}.png" />
+            <div class="txt-info">
+                {{ info[1] }} Formations
+                <div class="sub-txt">{{ info[0] }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</nav>
+<div class="main-content-div">
+    <section class="hb-side-bar">
+        <ul class="menu-main">
+            <li data-link="oadazk" class="{{ 'active' if tab=='dashboard' else '' }}"><img
+                    src="files/dashboard.png" />Tableau de bord</li>
+            <li data-link="" class="{{ 'active' if tab=='parcours' else '' }}"><img src="files/parcours.png" />Mon
+                parcours</li>
+            <li data-link="feasqda" class="{{ 'active' if tab=='courses' else '' }}"><img
+                    src="files/messessions.png" />Mes formations</li>
+            <li data-link="aozdlaz" class="{{ 'active' if tab=='quiz' else '' }}"><img src="files/certificat.png" />Mes
+                certificats</li>
+            <li data-link="Solidity" class="{{ 'active' if tab=='librarie' else '' }}"><img
+                    src="files/biblio.png" />Bibliothèque</li>
+            <li data-link="forum" class="{{ 'active' if tab=='forum' else '' }}"><img src="files/forum.png" />Forum</li>
+        </ul>
+        <ul class="menu-footer">
+            <li>Paramétres</li>
+            <li>Déconnexion</li>
+        </ul>
+    </section>
+    <section class="main-content">
+
+        <div class="calednar-action">Calendrier des évènements</div>
+        <div id="calendar-container">
+            <div class="calendar-controls">
+                <a id="prevMonth">&lt;</a>
+                <span id="currentMonthYear"></span>
+                <a id="nextMonth">&gt;</a>
+            </div>
+            <div id="calendar"></div>
+
+        </div>
+    </section>
+</div>
+
+{% endblock %}

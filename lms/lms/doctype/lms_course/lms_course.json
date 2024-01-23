@@ -45,7 +45,8 @@
   "column_break_rxww",
   "grant_certificate_after",
   "evaluator",
-  "duration"
+  "duration",
+  "is_open"
  ],
  "fields": [
   {
@@ -240,6 +241,12 @@
    "fieldname": "amount_usd",
    "fieldtype": "Currency",
    "label": "Amount (USD)"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_open",
+   "fieldtype": "Check",
+   "label": "Ouverte ?"
   }
  ],
  "is_published_field": "published",
@@ -266,7 +273,7 @@
   }
  ],
  "make_attachments_public": 1,
- "modified": "2023-12-21 12:27:32.559901",
+ "modified": "2024-01-22 22:41:11.298433",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Course",

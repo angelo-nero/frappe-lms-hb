@@ -135,6 +135,11 @@ override_whitelisted_methods = {
 
 # Add all simple route rules here
 website_route_rules = [
+	{"from_route": "/parcours", "to_route": "parcours/parcours"},
+	{"from_route": "/calendar", "to_route": "calendar/calendar"},
+	{"from_route": "/forum", "to_route": "forum/forum"},
+    
+
 	{"from_route": "/sketches/<sketch>", "to_route": "sketches/sketch"},
 	{"from_route": "/courses/<course>", "to_route": "courses/course"},
 	{"from_route": "/courses/<course>/edit", "to_route": "courses/create"},

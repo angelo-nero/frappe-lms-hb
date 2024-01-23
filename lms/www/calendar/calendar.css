@@ -1,0 +1,390 @@
+@font-face {
+    font-family: "ITC BOLD";
+    src: url("/files/ITCAvantGardeStdBold.otf");
+}
+
+@font-face {
+    font-family: "ITC NRM";
+    src: url("/files/ITCAvantGardeStdBk.otf");
+}
+
+@font-face {
+    font-family: "ITC MD";
+    src: url("/files/ITCAvantGardeStdMd.otf");
+}
+
+.txt-welcome {
+    display: none;
+}
+
+section.hb-side-bar {
+    width: 200px;
+    min-height: 100vh;
+    padding-top: 20px;
+    background: #d2edfc;
+}
+
+body {
+    background: #E6EFF5;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.profil-img {
+    width: 150px;
+    height: 150px;
+    background: #dbe0e3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+
+.user-name {
+    color: #002F51;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 20px 0;
+}
+
+.hb-side-bar ul {
+    list-style: none;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.hb-side-bar ul li {
+    padding-left: 42px;
+    margin: 30px 0;
+    line-height: 30px;
+    cursor: pointer;
+    color: #0b438e;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.main-content-div {
+    display: flex;
+    background: #fff;
+    width: 100%;
+}
+
+.hb-side-bar .menu-main img {
+    width: 24px;
+    margin-right: 12px;
+}
+
+ul.menu-footer {
+    border-top: 1px dotted #9fd5f3;
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("/files/Montserrat-Regular.ttf");
+}
+
+
+section.main-content {
+    flex: 1;
+}
+
+.hb-side-bar li.active {
+    font-weight: bolder;
+}
+
+.codex-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 0px -7px;
+    padding-bottom: 20px !important;
+}
+
+.page-head.flex .container .row {
+    display: none;
+}
+
+
+
+
+span#user-name {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 1.6875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: block;
+}
+
+
+
+
+
+.vertically-center {
+    display: flex;
+    align-items: center;
+}
+
+svg {
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.icon {
+    display: inline-block;
+    font-size: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    fill: transparent;
+    stroke: #192734;
+}
+
+.icon-base,
+.icon-md {
+    width: 20px;
+    height: 20px;
+}
+
+.course-card-title {
+    font-weight: 600;
+    color: #0d438e;
+    font-size: 0.9rem;
+}
+
+.short-introduction {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 15px;
+    color: #6f6d6d
+}
+
+
+
+
+
+a.navbar-brand span {
+    display: block;
+    color: white;
+    font-weight: bold;
+    font-family: Montserrat;
+}
+
+a.navbar-brand span:nth-child(2) {
+    color: #ababab;
+    font-size: small;
+}
+
+.navbar-light {
+    border-bottom: unset;
+    background: #0b438e;
+}
+
+
+
+.recap {
+    display: flex;
+    justify-content: center;
+}
+
+.info-container {
+    display: flex;
+    background: white;
+    align-items: center;
+    margin: 5px;
+    padding: 5px 10px;
+    min-width: 180px;
+    border-radius: 20px;
+}
+
+.info-container img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.txt-info {
+    font-family: 'ITC BOLD';
+}
+
+.sub-txt {
+    font-family: 'ITC NRM';
+}
+
+
+.slide-nav {
+
+    position: absolute;
+    background: #e9f6fe;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    z-index: 99;
+    cursor: pointer;
+}
+
+.slide-nav.lt {
+    left: 0;
+}
+
+.slide-nav.gt {
+    right: 0;
+}
+
+.slide-nav span {
+    background: #0d438e;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    color: white;
+    font-weight: 800;
+}
+
+
+.lp-logo img {
+    position: absolute;
+    width: 125px;
+    top: 10px;
+    left: 38px;
+}
+
+
+
+.calendar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+    width: 100%;
+    font-family: 'ITC BOLD';
+    color: #0d438e;
+    padding-top: 10px;
+}
+
+#calendar {
+    border-collapse: collapse;
+    width: 100%;
+    /* Makes the calendar take full width of its container */
+}
+
+#calendar td,
+#calendar th {
+    border: unset;
+    text-align: center;
+    padding: 5px;
+    font-weight: 700;
+}
+
+.tagged-date {
+    background-color: #2c98d6;
+    color: white !important;
+}
+
+.calendar-controls {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 10px;
+    width: 100%;
+    font-family: 'ITC BOLD';
+    color: #0d438e;
+    border-bottom: 1px solid #c4cfd7;
+    align-items: center;
+}
+
+.calendar-controls a {
+    font-size: x-large;
+    margin: 0 5px;
+}
+
+#calendar td {
+    color: #2298d6;
+    border: 2px solid #55c5f2;
+    height: 100px;
+    vertical-align: top;
+    background: white;
+}
+
+#calendar th {
+    color: #989898;
+}
+
+.weekend {
+    color: grey !important;
+}
+
+div#calendar-container {
+    background: #e9f6fe;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.calednar-action a {
+    display: block;
+    text-align: right;
+    background: white;
+    font-family: 'ITC MD';
+    padding-top: 15px;
+    color: #0d438e;
+}
+
+td.over-day {
+    background: #d2edfc !important;
+}
+
+span.day {
+    display: block;
+    text-align: right;
+    color: #989898;
+}
+
+#calendar td {
+    width: 100px;
+    /* Fixed width */
+    height: 100px;
+}
+
+#calendar td .desc {
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #4C5A67;
+    text-align: left;
+}
+
+span#currentMonthYear {
+    margin-top: 5px;
+}
+
+.calednar-action {
+    font-family: 'ITC MD';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 15px 0;
+    color: #0d438e;
+    margin-left: 22px;
+}
