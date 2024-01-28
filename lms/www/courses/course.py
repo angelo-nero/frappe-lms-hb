@@ -16,6 +16,26 @@ from lms.lms.utils import (
 
 def get_context(context):
 	context.no_cache = 1
+	if frappe.session.user == "Guest":
+	    raise frappe.PermissionError(_("You don't have permission to access this page."))        
+    
+	username = frappe.db.get_value("User", frappe.session.user, ["username"])
+	context.member = frappe.get_doc("User", {"username": username})
+	values = {"user_e": context.member.email}
+	data = frappe.db.sql("""SELECT 'Commencées', count(*),'Started'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Started' UNION
+                         SELECT 'Terminées', count(*),'Completed'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Completed' UNION
+                         SELECT 'Échouées', count(*),'Failed'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Failed'""", values=values, as_dict=0)
+	
+	context.recap_data = data
 
 	try:
 		course_name = frappe.form_dict["course"]
@@ -53,20 +73,11 @@ def set_course_context(context, course_name):
 			"disable_self_learning",
 			"status",
 			"video_link",
-			"paid_course",
-			"course_price",
-			"currency",
-			"amount_usd",
 			"enable_certification",
 			"grant_certificate_after",
 		],
 		as_dict=True,
 	)
-
-	if course.course_price:
-		course.course_price, course.currency = check_multicurrency(
-			course.course_price, course.currency, None, course.amount_usd
-		)
 
 	if frappe.form_dict.get("edit"):
 		if not is_instructor(course.name) and not has_course_moderator_role():

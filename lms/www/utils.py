@@ -46,6 +46,11 @@ def redirect_to_lesson(course, index_="1.1"):
 	)
 	raise frappe.Redirect
 
+def redirect_to_course(course):
+	frappe.local.flags.redirect_location = (
+		f"/courses/{course.name}"
+	)
+	raise frappe.Redirect
 
 def get_current_lesson_details(lesson_number, context, is_edit=False):
 	details_list = list(filter(lambda x: cstr(x.number) == lesson_number, context.lessons))
@@ -54,7 +59,7 @@ def get_current_lesson_details(lesson_number, context, is_edit=False):
 		if is_edit:
 			return None
 		else:
-			redirect_to_lesson(context.course)
+			redirect_to_course(context.course)
 
 	lesson_info = details_list[0]
 	lesson_info.body = lesson_info.body.replace('"', "'")

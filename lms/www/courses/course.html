@@ -1,11 +1,99 @@
 {% extends "lms/templates/lms_base.html" %}
 {% block title %}
-    {{  course.title if course.title else _("New Course") }}
+{{ course.title if course.title else _("New Course") }}
 {% endblock %}
 
 
 {% block page_content %}
+<svg id="frappe-symbols" aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+    <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="icon-users">
+        <path
+            d="M17.727 18.728H20a1 1 0 0 0 1-1v-2.537a.818.818 0 0 0-.515-.76l-3.061-1.226a.819.819 0 0 1-.515-.758v-.718a3.258 3.258 0 0 0 1.636-2.82V7.274a3.272 3.272 0 0 0-4.909-2.835m.304 10.811l-3.062-1.227a.818.818 0 0 1-.514-.758v-.369c2.675-.357 3.272-1.532 3.272-1.532S12 9.728 12 8.092a3.273 3.273 0 1 0-6.545 0c0 1.636-1.637 3.272-1.637 3.272s.597 1.175 3.273 1.532v.37a.818.818 0 0 1-.515.758l-3.061 1.228a.819.819 0 0 0-.515.757v1.72a1 1 0 0 0 1 1h9.454a1 1 0 0 0 1-1v-1.72a.818.818 0 0 0-.514-.759z"
+            stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+
+    <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="icon-education">
+        <path d="M12 5.625V14" stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="round"></path>
+        <path
+            d="M14.125 3.5C12.951 3.5 12 4.45 12 5.625 12 4.451 11.05 3.5 9.875 3.5H4.5a1 1 0 0 0-1 1v11.875a2 2 0 0 0 2 2h4.375c1.174 0 2.125.95 2.125 2.125 0-1.174.95-2.125 2.125-2.125H18.5a2 2 0 0 0 2-2V4.5a1 1 0 0 0-1-1h-5.375z"
+            stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="square"></path>
+    </symbol>
+
+</svg>
+<div class="app-logo" style="display: none;"></div>
+<nav class="navbar navbar-light navbar-expand-lg" style="display: block !important;">
+    <div class="container">
+        <div class="lp-logo">
+            <img src="/files/logo_academy.png" alt="cosumar logo">
+        </div>
+        <a class="navbar-brand" href="/parcours"><span>BIENVENUE {{ member.full_name }} !</span>
+            <span>Que souhaitez-vous apprendre aujourd'hui ?</span></a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="mr-auto navbar-nav">
+            </ul>
+            <ul class="ml-auto navbar-nav">
+                <!-- post login tools -->
+                <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login">
+                    <a class="nav-link nav-avatar" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <span class="user-image-wrapper"><span class="avatar avatar-medium filterable" title="ismail"
+                                data-filter="_assign,like,%null%">
+                                <div class="avatar-frame standard-image"
+                                    style="background-color: var(--purple-avatar-bg); color: var(--purple-avatar-color)">
+                                    i
+                                </div>
+                            </span></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" href="/me"
+                            rel="nofollow">
+                            My Account
+                        </a><a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
+                            Log out
+                        </a><a class="dropdown-item switch-to-desk" href="/app">Switch To Desk</a>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-login-area" href="/login" style="display: none;">Login</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group mb-0 hide" id="language-switcher">
+            <select class="form-control"></select>
+        </div>
+    </div>
+    <div class="recap">
+        {% for info in recap_data %}
+        <div class="info-container">
+            <img src="/files/img-{{info[2]}}.png" />
+            <div class="txt-info">
+                {{ info[1] }} Formations
+                <div class="sub-txt">{{ info[0] }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</nav>
 <div class="common-page-style">
+    <section class="hb-side-bar">
+        <ul class="menu-main">
+            <li data-link="oadazk" class="{{ 'active' if tab=='dashboard' else '' }}"><img
+                    src="/files/dashboard.png" />Tableau de bord</li>
+            <li data-link="" class="{{ 'active' if tab=='parcours' else '' }}"><img src="/files/parcours.png" />Mon
+                parcours</li>
+            <li data-link="feasqda" class="{{ 'active' if tab=='courses' else '' }}"><img
+                    src="/files/messessions.png" />Mes formations</li>
+            <li data-link="aozdlaz" class="{{ 'active' if tab=='quiz' else '' }}"><img src="/files/certificat.png" />Mes
+                certificats</li>
+            <li data-link="Solidity" class="{{ 'active' if tab=='librarie' else '' }}"><img
+                    src="/files/biblio.png" />Bibliothèque</li>
+            <li data-link="forum" class="{{ 'active' if tab=='forum' else '' }}"><img src="/files/forum.png" />Forum
+            </li>
+        </ul>
+        <ul class="menu-footer">
+            <li>Paramétres</li>
+            <li>Déconnexion</li>
+        </ul>
+    </section>
     <div class="course-home-top-container">
         {{ CourseHomeHeader(course) }}
         <div class="course-home-page">
@@ -13,9 +101,10 @@
                 {{ CourseHeaderOverlay(course) }}
                 <div class="course-body-container">
                     {{ Description(course) }}
-                    {{ widgets.CourseOutline(course=course, membership=membership, is_user_interested=is_user_interested) }}
+                    {{ widgets.CourseOutline(course=course, membership=membership,
+                    is_user_interested=is_user_interested) }}
                     {% if course.status == "Approved" and not frappe.utils.cint(course.upcoming) %}
-                        {% include "lms/templates/reviews.html" %}
+                    {% include "lms/templates/reviews.html" %}
                     {% endif %}
                 </div>
             </div>
@@ -49,101 +138,103 @@
 
 <!-- Course Card -->
 {% macro CourseCardWide(course) %}
-    <div class="d-flex align-items-center mt-8">
-        {% for tag in get_tags(course.name) %}
-        <div class="course-card-pills">
-            {{ tag }}
-        </div>
+<div class="d-flex align-items-center mt-8">
+    {% for tag in get_tags(course.name) %}
+    <div class="course-card-pills">
+        {{ tag }}
+    </div>
+    {% endfor %}
+</div>
+
+<div id="title" class="page-title">
+    {{ course.title }}
+</div>
+
+<div id="intro">
+    {% if course.short_introduction %}
+    {{ course.short_introduction }}
+    {% endif %}
+</div>
+
+{% if not course.upcoming %}
+<div class="avg-rating-stars">
+    <div class="rating">
+        {% for i in [1, 2, 3, 4, 5] %}
+        <svg class="icon icon-lg {% if i <= frappe.utils.ceil(avg_rating) %} star-click {% endif %}"
+            data-rating="{{ i }}">
+            <use href="#icon-star"></use>
+        </svg>
         {% endfor %}
     </div>
+</div>
+{% endif %}
 
-    <div id="title" class="page-title">
-        {{ course.title }}
+<div class="mt-2">
+    <div class="bold-heading">{{ _("Instructors") }}:</div>
+    {% for instructor in get_instructors(course.name) %}
+    <div class="mt-1">
+        {{ widgets.Avatar(member=instructor, avatar_class="avatar-small") }}
+        <a class="button-links" href="{{ get_profile_url(instructor.username) }}">
+            <span class="course-instructor"> {{ instructor.full_name }} </span>
+        </a>
     </div>
+    {% endfor %}
+</div>
 
-    <div id="intro">
-        {% if course.short_introduction %}
-        {{ course.short_introduction }}
-        {% endif %}
-    </div>
-
-    {% if not course.upcoming %}
-    <div class="avg-rating-stars">
-        <div class="rating">
-            {% for i in [1, 2, 3, 4, 5] %}
-            <svg class="icon icon-lg {% if i <= frappe.utils.ceil(avg_rating) %} star-click {% endif %}" data-rating="{{ i }}">
-                <use href="#icon-star"></use>
-            </svg>
-            {% endfor %}
+{% if membership %}
+{% set progress = frappe.utils.cint(membership.progress) %}
+<div class="mt-8">
+    <div class="progress-percent m-0">{{ progress }}% {{ _("Completed") }}</div>
+    <div class="progress" title="{{ progress }}% Completed">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0"
+            aria-valuemax="100" style="width:{{ progress }}%">
         </div>
     </div>
-    {% endif %}
-
-    <div class="mt-2">
-        <div class="bold-heading">{{ _("Instructors") }}:</div>
-        {% for instructor in get_instructors(course.name) %}
-        <div class="mt-1">
-            {{ widgets.Avatar(member=instructor, avatar_class="avatar-small") }}
-            <a class="button-links" href="{{ get_profile_url(instructor.username) }}">
-                <span class="course-instructor"> {{ instructor.full_name }} </span>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-
-    {% if membership %}
-    {% set progress = frappe.utils.cint(membership.progress) %}
-    <div class="mt-8">
-        <div class="progress-percent m-0">{{ progress }}% {{ _("Completed") }}</div>
-        <div class="progress" title="{{ progress }}% Completed">
-            <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress }}"
-            aria-valuemin="0" aria-valuemax="100" style="width:{{ progress }}%">
-            </div>
-        </div>
-    </div>
-    {% endif %}
+</div>
+{% endif %}
 {% endmacro %}
 
 
 <!-- Overlay -->
 {% macro CourseHeaderOverlay(course) %}
-    <div class="course-overlay-card">
+<div class="course-overlay-card">
 
-        {% if course.video_link %}
-        <iframe class="preview-video" frameborder="0" allowfullscreen src="https://www.youtube.com/embed/{{ course.video_link }}"
+    {% if course.video_link %}
+    <iframe class="preview-video" frameborder="0" allowfullscreen
+        src="https://www.youtube.com/embed/{{ course.video_link }}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+    {% endif %}
+
+    <div class="course-overlay-content">
+
+        <div class="cta-parent">
+            {{ CTASection(course, membership) }}
+        </div>
+
+        {{ Notes(course) }}
+
+        {% if course.paid_course %}
+        <div class="vertically-center mb-3 bold-heading">
+            {{ frappe.utils.fmt_money(course.course_price, 0, course.currency) }}
+        </div>
         {% endif %}
 
-        <div class="course-overlay-content">
-
-            <div class="cta-parent">
-                {{ CTASection(course, membership) }}
-            </div>
-
-            {{ Notes(course) }}
-
-            {% if course.paid_course %}
-            <div class="vertically-center mb-3 bold-heading">
-                {{ frappe.utils.fmt_money(course.course_price, 0, course.currency)  }}
-            </div>
-            {% endif %}
-
-            <div class="vertically-center mb-3">
-                <svg class="icon icon-md mr-1">
-                    <use class="" href="#icon-users">
-                </svg>
-                {{ format_number(get_students(course.name) | length) }} {{ _("Enrolled") }}
-            </div>
-
-            <div class="vertically-center mb-3">
-                <svg class="icon icon-md mr-1">
-                    <use href="#icon-education"></use>
-                </svg>
-                {{ get_lessons(course.name, None, False) }} {{ _("Lessons") }}
-            </div>
-
+        <div class="vertically-center mb-3">
+            <svg class="icon icon-md mr-1">
+                <use class="" href="#icon-users">
+            </svg>
+            {{ format_number(get_students(course.name) | length) }} {{ _("Enrolled") }}
         </div>
+
+        <div class="vertically-center mb-3">
+            <svg class="icon icon-md mr-1">
+                <use href="#icon-education"></use>
+            </svg>
+            {{ get_lessons(course.name, None, False) }} {{ _("Lessons") }}
+        </div>
+
     </div>
+</div>
 
 {% endmacro %}
 
@@ -159,128 +250,132 @@
 
 <!-- Related Courses Section -->
 {% macro RelatedCourses(course) %}
-    {% if course.related_courses | length %}
-    <div class="related-courses">
+{% if course.related_courses | length %}
+<div class="related-courses">
     <div class="container">
         <div class="page-title"> {{ _("Other Courses") }} </div>
         <div class="carousel slide" id="carouselExampleControls" data-ride="carousel" data-interval="false">
-        <div class="carousel-inner">
-            {% for crs in course.related_courses %}
-            {% if loop.index % 3 == 1 %}
-            <div class="carousel-item {% if loop.index == 1 %} active {% endif %}"><div class="cards-parent">
+            <div class="carousel-inner">
+                {% for crs in course.related_courses %}
+                {% if loop.index % 3 == 1 %}
+                <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
+                    <div class="cards-parent">
+                        {% endif %}
+                        {{ widgets.CourseCard(course=crs, read_only=False) }}
+                        {% if loop.index % 3 == 0 or loop.index == course.related_courses | length %} </div>
+                </div> {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if course.related_courses | length > 3 %}
+            <div class="slider-controls">
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </a>
+
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </a>
+            </div>
             {% endif %}
-            {{ widgets.CourseCard(course=crs, read_only=False) }}
-            {% if loop.index % 3 == 0 or loop.index == course.related_courses | length %} </div> </div> {% endif %}
-            {% endfor %}
-        </div>
-
-        {% if course.related_courses | length > 3 %}
-        <div class="slider-controls">
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </a>
-
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </a>
-        </div>
-        {% endif %}
 
         </div>
     </div>
 
-    </div>
-    {% endif %}
+</div>
+{% endif %}
 {% endmacro %}
 
 
 <!-- CTA's -->
 {% macro CTASection(course, membership) %}
-    {% set lesson_index = get_lesson_index(membership.current_lesson) if membership and
-    membership.current_lesson else "1.1" if first_lesson_exists(course.name) else None %}
+{% set lesson_index = get_lesson_index(membership.current_lesson) if membership and
+membership.current_lesson else "1.1" if first_lesson_exists(course.name) else None %}
 
-    <div class="all-cta">
-        {% if is_instructor and not course.published and course.status != "Under Review" %}
-        <div class="btn btn-primary wide-button" id="submit-for-review" data-course="{{ course.name | urlencode }}">
-            {{ _("Submit for Review") }}
-        </div>
+<div class="all-cta">
+    {% if is_instructor and not course.published and course.status != "Under Review" %}
+    <div class="btn btn-primary wide-button" id="submit-for-review" data-course="{{ course.name | urlencode }}">
+        {{ _("Submit for Review") }}
+    </div>
 
-        {% elif is_instructor and lesson_index %}
-        <a class="btn btn-primary wide-button" id="continue-learning"
-            href="{{ get_lesson_url(course.name, lesson_index) }}{{ course.query_parameter }}">
-            {{ _("Checkout Course") }}
-        </a>
+    {% elif is_instructor and lesson_index %}
+    <a class="btn btn-primary wide-button" id="continue-learning"
+        href="{{ get_lesson_url(course.name, lesson_index) }}{{ course.query_parameter }}">
+        {{ _("Checkout Course") }}
+    </a>
 
-        {% elif course.upcoming and not is_user_interested and not is_instructor %}
-        <div class="btn btn-secondary wide-button notify-me" data-course="{{course.name | urlencode}}">
-            {{ _("Notify me when available") }}
-        </div>
+    {% elif course.upcoming and not is_user_interested and not is_instructor %}
+    <div class="btn btn-secondary wide-button notify-me" data-course="{{course.name | urlencode}}">
+        {{ _("Notify me when available") }}
+    </div>
 
-        {% elif is_cohort_staff(course.name, frappe.session.user) %}
-        <a class="btn btn-secondary button-links wide-button" href="/courses/{{course.name}}/manage">
-            {{ _("Manage Cohorts") }}
-        </a>
+    {% elif is_cohort_staff(course.name, frappe.session.user) %}
+    <a class="btn btn-secondary button-links wide-button" href="/courses/{{course.name}}/manage">
+        {{ _("Manage Cohorts") }}
+    </a>
 
-        {% elif membership %}
-        <a class="btn btn-primary wide-button" id="continue-learning"
-            href="{{ get_lesson_url(course.name, lesson_index) }}{{ course.query_parameter }}">
-            {{ _("Continue Learning") }}
-        </a>
+    {% elif membership %}
+    <a class="btn btn-primary wide-button" id="continue-learning"
+        href="{{ get_lesson_url(course.name, lesson_index) }}{{ course.query_parameter }}">
+        {{ _("Continue Learning") }}
+    </a>
 
-        {% elif course.paid_course and not is_instructor %}
-        <a class="btn btn-primary wide-button" href="/billing/course/{{ course.name | urlencode }}">
-            {{ _("Buy This Course") }}
-        </a>
+    {% elif course.paid_course and not is_instructor %}
+    <a class="btn btn-primary wide-button" href="/billing/course/{{ course.name | urlencode }}">
+        {{ _("Buy This Course") }}
+    </a>
 
-        {% elif show_start_learing_cta(course, membership) %}
-        <div class="btn btn-primary wide-button enroll-in-course" data-course="{{ course.name | urlencode }}">
-            {{ _("Start Learning") }}
-        </div>
-        {% endif %}
+    {% elif show_start_learing_cta(course, membership) %}
+    <div class="btn btn-primary wide-button enroll-in-course" data-course="{{ course.name | urlencode }}">
+        {{ _("Start Learning") }}
+    </div>
+    {% endif %}
 
-        {% set progress = frappe.utils.cint(membership.progress) %}
+    {% set progress = frappe.utils.cint(membership.progress) %}
 
-        {% if membership and course.enable_certification %}
-            {% if certificate %}
-            <a class="btn btn-secondary wide-button mt-2" href="/courses/{{ course.name }}/{{ certificate }}">
-                {{ _("Get Certificate") }}
-            </a>
+    {% if membership and course.enable_certification %}
+    {% if certificate %}
+    <a class="btn btn-secondary wide-button mt-2" href="/courses/{{ course.name }}/{{ certificate }}">
+        {{ _("Get Certificate") }}
+    </a>
 
-            {% elif course.grant_certificate_after == "Completion" and progress == 100 %}
-            <div class="btn btn-secondary wide-button mt-2" id="certification" data-course="{{ course.name }}">
-                {{ _("Get Certificate") }}
-            </div>
-            {% endif %}
-        {% endif %}
+    {% elif course.grant_certificate_after == "Completion" and progress == 100 %}
+    <div class="btn btn-secondary wide-button mt-2" id="certification" data-course="{{ course.name }}">
+        {{ _("Get Certificate") }}
+    </div>
+    {% endif %}
+    {% endif %}
 
-        {% if is_instructor or has_course_moderator_role() %}
-            <a class="btn btn-secondary wide-button mt-2" title="Edit Course" href="/courses/{{ course.name }}/edit">
-                <!-- <svg class="icon icon-md">
+    {% if is_instructor or has_course_moderator_role() %}
+    <a class="btn btn-secondary wide-button mt-2" title="Edit Course" href="/courses/{{ course.name }}/edit">
+        <!-- <svg class="icon icon-md">
                     <use href="#icon-edit"></use>
                 </svg> -->
-                {{ _("Edit") }}
-            </a>
-        {% endif %}
-    </div>
+        {{ _("Edit") }}
+    </a>
+    {% endif %}
+</div>
 
 {% endmacro %}
 
 
 <!-- Notes and Messages -->
 {% macro Notes(course) %}
-    <div id="interest-alert" class="{% if not is_user_interested %} hide {% endif %}">
-        {{ _("You have opted to be notified for this course. You will receive an email when the course becomes available.") }}
-    </div>
+<div id="interest-alert" class="{% if not is_user_interested %} hide {% endif %}">
+    {{ _("You have opted to be notified for this course. You will receive an email when the course becomes available.")
+    }}
+</div>
 
-    {% if course.status == "Under Review" and is_instructor %}
-    <div class="mb-4">
-        {{ _("This course is currently under review. Once the review is complete, the System Admins will publish it on the website.") }}
-    </div>
-    {% endif %}
+{% if course.status == "Under Review" and is_instructor %}
+<div class="mb-4">
+    {{ _("This course is currently under review. Once the review is complete, the System Admins will publish it on the
+    website.") }}
+</div>
+{% endif %}
 
-    {% if no_of_attempts and no_of_attempts >= course.max_attempts %}
-    <p>
-        {{ _("You have exceeded the maximum number of attempts allowed to appear for evaluations of this course.") }}
-    </p>
-    {% endif %}
+{% if no_of_attempts and no_of_attempts >= course.max_attempts %}
+<p>
+    {{ _("You have exceeded the maximum number of attempts allowed to appear for evaluations of this course.") }}
+</p>
+{% endif %}
 {% endmacro %}

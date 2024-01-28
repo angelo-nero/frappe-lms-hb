@@ -12,14 +12,17 @@ def get_context(context):
 
     values = {"user_e": context.member.email}
     
-    data = frappe.db.sql("""
-                                SELECT lut.status,count(*)
-                                FROM `tabLMS User Career` luc
-                                        join `tabLMS User Training` lut on luc.name = lut.parent and luc.user_c = %(user_e)s
-                                        left join `tabLMS Enrollment` lbm on luc.user_c = lbm.member and lut.training = lbm.course
-                                where lut.status <> 'Not started' and lbm.member = %(user_e)s
-                         group by lut.status      
-                         order by lut.status;
-                                """, values=values, as_dict=0)
+    data = frappe.db.sql("""SELECT 'Commencées', count(*),'Started'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Started' UNION
+                         SELECT 'Terminées', count(*),'Completed'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Completed' UNION
+                         SELECT 'Échouées', count(*),'Failed'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Failed'""", values=values, as_dict=0)
     
     context.recap_data = data

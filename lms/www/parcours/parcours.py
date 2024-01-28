@@ -23,27 +23,31 @@ def get_context(context):
 
     values = {"user_e": context.member.email}
     
-    data = frappe.db.sql("""
-                                SELECT lut.status,count(*)
-                                FROM `tabLMS User Career` luc
-                                        join `tabLMS User Training` lut on luc.name = lut.parent and luc.user_c = %(user_e)s
-                                        left join `tabLMS Enrollment` lbm on luc.user_c = lbm.member and lut.training = lbm.course
-                                where lut.status <> 'Not started' and lbm.member = %(user_e)s
-                         group by lut.status      
-                         order by lut.status;
-                                """, values=values, as_dict=0)
+    data = frappe.db.sql("""SELECT 'Commencées', count(*),'Started'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Started' UNION
+                         SELECT 'Terminées', count(*),'Completed'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Completed' UNION
+                         SELECT 'Échouées', count(*),'Failed'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Failed'""", values=values, as_dict=0)
     
     context.recap_data = data
 
     if tab == 'parcours':
         data = frappe.db.sql("""
                                 SELECT
-                                lut.idx,luc.career,module,lt.title,lut.status,lt.is_open,lt.title,lt.is_classroom,start_date,lt.categorie,lmd.parent_lms_module as parent_module
-                                FROM `tabLMS User Career` luc
+                                lut.idx,luc.career,module,lt.title,lut.status,lcti.is_open,lt.title,lcti.is_classroom,start_date,lt.categorie,lmd.parent_lms_module as parent_module
+                             ,lt.name   
+                             FROM `tabLMS User Career` luc
+                                join `tabLMS User Training` lut on luc.name = lut.parent
                                 join `tabLMS Career Training` lct on luc.career = lct.career
                                 join `tabLMS Module`lmd on lmd.name = lct.module
-                                join `tabLMS career training items` lcti on lct.name = lcti.parent
-                                join `tabLMS User Training` lut on luc.name = lut.parent and lcti.training = lut.training
+                                join `tabLMS Training` lcti on lct.name = lcti.parent and lcti.course = lut.training
                                 join `tabLMS Course` lt on lut.training = lt.name
                                 left join (select start_date, student, training
                                                     from `tabLMS Class` cl
@@ -70,7 +74,7 @@ def get_context(context):
             
             if x[2] not in res_dict:
                 res_dict[x[2]] = []
-            res_dict[x[2]].append({"training" : x[3], "status": x[4] if x[4] != 'Not started' else 'not-started', "is_open": x[5], "course": x[6]
+            res_dict[x[2]].append({"training" : x[3], "status": x[4] if x[4] != 'Not started' else 'not-started', "is_open": x[5], "course": x[11]
             , "is_classroom": x[7],"start_date":x[8], "tag":x[9],"classroom": 'CLUB' if x[7] else 'E-Learning'
                 
             })
