@@ -10,6 +10,7 @@
  "field_order": [
   "chapter",
   "course",
+  "depend_to",
   "column_break_4",
   "title",
   "include_in_preview",
@@ -67,10 +68,9 @@
   },
   {
    "fieldname": "body",
-   "fieldtype": "Markdown Editor",
+   "fieldtype": "Text Editor",
    "ignore_xss_filter": 1,
-   "label": "Body",
-   "reqd": 1
+   "label": "Body"
   },
   {
    "fieldname": "help_section",
@@ -94,8 +94,9 @@
   {
    "description": "Quiz will appear at the bottom of the lesson.",
    "fieldname": "quiz_id",
-   "fieldtype": "Data",
-   "label": "Quiz ID"
+   "fieldtype": "Link",
+   "label": "Quiz ID",
+   "options": "LMS Quiz"
   },
   {
    "fieldname": "column_break_9",
@@ -137,11 +138,17 @@
    "fieldname": "instructor_notes",
    "fieldtype": "Markdown Editor",
    "label": "Instructor Notes"
+  },
+  {
+   "default": "0",
+   "fieldname": "depend_to",
+   "fieldtype": "Check",
+   "label": "d\u00e9pend au pr\u00e9c\u00e9dent ?"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-29 17:04:19.252897",
+ "modified": "2024-03-14 10:12:25.474533",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "Course Lesson",

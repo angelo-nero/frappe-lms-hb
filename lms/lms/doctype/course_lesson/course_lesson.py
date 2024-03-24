@@ -93,23 +93,19 @@ def save_progress(lesson, course, status):
 	)
 	if not membership:
 		return 0
+	quiz = frappe.db.get_value("Course Lesson", lesson, "quiz_id")
 
-	body = frappe.db.get_value("Course Lesson", lesson, "body")
-	macros = find_macros(body)
-	quizzes = [value for name, value in macros if name == "Quiz"]
-
-	for quiz in quizzes:
+	if quiz:
 		passing_percentage = frappe.db.get_value("LMS Quiz", quiz, "passing_percentage")
 		if not frappe.db.exists(
 			"LMS Quiz Submission",
 			{
 				"quiz": quiz,
 				"owner": frappe.session.user,
-				"percentage": [">=", passing_percentage],
+				#"percentage": [">=", passing_percentage],
 			},
 		):
 			return 0
-
 	filters = {"lesson": lesson, "owner": frappe.session.user, "course": course}
 	if frappe.db.exists("LMS Course Progress", filters):
 		doc = frappe.get_doc("LMS Course Progress", filters)

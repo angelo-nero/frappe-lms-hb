@@ -214,9 +214,8 @@ const parse_content_to_string = (data, type) => {
 		} else if (block.type == "paragraph") {
 			lesson_content += `${block.data.text}\n`;
 		} else if (block.type == "embed") {
-			lesson_content += `{{ Embed("${
-				block.data.service
-			}|||${block.data.embed.replace(/&amp;/g, "&")}") }}\n`;
+			lesson_content += `{{ Embed("${block.data.service
+				}|||${block.data.embed.replace(/&amp;/g, "&")}") }}\n`;
 		}
 	});
 	if (type == "lesson") {

@@ -5,12 +5,14 @@ from lms.lms.md import markdown_to_html
 
 from lms.lms.utils import (
 	get_lesson_url,
+	get_progress,
 	has_course_moderator_role,
 	is_instructor,
 	has_course_evaluator_role,
 )
 from lms.www.utils import (
 	get_common_context,
+	get_last_lesson_is_completed,
 	redirect_to_lesson,
 	get_current_lesson_details,
 )
@@ -18,6 +20,24 @@ from lms.www.utils import (
 
 def get_context(context):
 	get_common_context(context)
+
+	username = frappe.db.get_value("User", frappe.session.user, ["username"])
+	context.member = frappe.get_doc("User", {"username": username})
+	values = {"user_e": context.member.email}
+	data = frappe.db.sql("""SELECT 'Commencées', count(*),'Started'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Started' UNION
+                         SELECT 'Terminées', count(*),'Completed'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Completed' UNION
+                         SELECT 'Échouées', count(*),'Failed'
+FROM `tabLMS User Training` lut
+JOIN `tabLMS User Career` luc ON luc.name = lut.parent
+WHERE luc.user_c = %(user_e)s and lut.status = 'Failed'""", values=values, as_dict=0)
+	
+	context.recap_data = data
 
 	chapter_index = frappe.form_dict.get("chapter")
 	lesson_index = frappe.form_dict.get("lesson")
@@ -67,8 +87,17 @@ def get_context(context):
 		context.lesson.edit_mode = True
 	else:
 		neighbours = get_neighbours(lesson_number, context.lessons)
-		context.next_url = get_url(neighbours["next"], context.course)
+		context.next_id = neighbours["next"]
+		if context.lesson.quiz_id == None or context.lesson.quiz_id == '' or get_progress(context.course.name, context.lesson.name)  == 'Complete':
+			context.next_url = get_url(neighbours["next"], context.course)
 		context.prev_url = get_url(neighbours["prev"], context.course)
+		if neighbours["prev"] and context.lesson.depend_to:
+			if not get_last_lesson_is_completed(neighbours["prev"],  context):
+				context.lesson.body = '<div style="padding: 1.8rem 0;text-align: center;font-size: x-large;color: red;">Vous devez compléter le cours précédent !</div>'
+				context.lesson.youtube = ""
+				context.lesson.quiz_id  =  ""
+				context.next_url = ""
+			
 
 	meta_info = (
 		context.lesson.title + " - " + context.course.title

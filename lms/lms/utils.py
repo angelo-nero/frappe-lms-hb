@@ -29,6 +29,8 @@ from frappe.utils import (
 from frappe.utils.dateutils import get_period
 from lms.lms.md import find_macros, markdown_to_html
 
+from lms.plugins import pdf_renderer, video_renderer,quiz_renderer,exercise_renderer, assignment_renderer
+
 RE_SLUG_NOTALLOWED = re.compile("[^a-z0-9]+")
 
 
@@ -153,6 +155,7 @@ def get_lesson_details(chapter):
 				"question",
 				"file_type",
 				"instructor_notes",
+				"depend_to",
 			],
 			as_dict=True,
 		)
@@ -321,9 +324,45 @@ def render_html(lesson):
 	if lesson.question:
 		assignment = "{{ Assignment('" + lesson.question + "-" + lesson.file_type + "') }}"
 		text = text + assignment
+	
+	return process_text(text)
 
-	return markdown_to_html(text)
-
+def process_text(text):
+	# Define the regular expression pattern
+	pattern = r'{{\s*(\w+)\(\'(.*?)\'\)\s*}}'
+	# Find all matches in the text
+	matches = re.findall(pattern, text)
+	# Process each match
+	for match in matches:
+		function_name = match[0]
+		argument = match[1]
+		if function_name == 'Video':
+			# Call the Video function
+			video_result = video_renderer(argument)
+			# Replace the match in the text with the result
+			text = text.replace('{{ ' + function_name + "('" + argument + "') }}", video_result)
+		elif function_name == 'Quiz':
+			# Call the Quiz function
+			quiz_result = quiz_renderer(argument)
+			# Replace the match in the text with the result
+			text = text.replace('{{ ' + function_name + "('" + argument + "') }}", quiz_result)
+		elif function_name == 'Exercise':
+			# Call the Exercise function
+			exercise_result = exercise_renderer(argument)
+			# Replace the match in the text with the result
+			text = text.replace('{{ ' + function_name + "('" + argument + "') }}", exercise_result)
+		elif function_name == 'Assignment':
+			# Call the Assignment function
+			assignment_result = assignment_renderer(argument)
+			# Replace the match in the text with the result
+			text = text.replace('{{ ' + function_name + "('" + argument + "') }}", assignment_result)
+		elif function_name == 'Pdf':
+			# Call the PDF function
+			pdf_result  = pdf_renderer(argument)
+			# Replace the match in the text with the result
+			text = text.replace('{{ ' + function_name + "('" + argument + "') }}", pdf_result)
+	text  = text.replace('ql-editor read-mode', '')
+	return text
 
 def is_mentor(course, email):
 	"""Checks if given user is a mentor for this course."""

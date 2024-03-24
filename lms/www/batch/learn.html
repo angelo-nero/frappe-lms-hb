@@ -17,8 +17,95 @@
 
 
 {% block page_content %}
+<svg id="frappe-symbols" aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+    <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="icon-users">
+        <path
+            d="M17.727 18.728H20a1 1 0 0 0 1-1v-2.537a.818.818 0 0 0-.515-.76l-3.061-1.226a.819.819 0 0 1-.515-.758v-.718a3.258 3.258 0 0 0 1.636-2.82V7.274a3.272 3.272 0 0 0-4.909-2.835m.304 10.811l-3.062-1.227a.818.818 0 0 1-.514-.758v-.369c2.675-.357 3.272-1.532 3.272-1.532S12 9.728 12 8.092a3.273 3.273 0 1 0-6.545 0c0 1.636-1.637 3.272-1.637 3.272s.597 1.175 3.273 1.532v.37a.818.818 0 0 1-.515.758l-3.061 1.228a.819.819 0 0 0-.515.757v1.72a1 1 0 0 0 1 1h9.454a1 1 0 0 0 1-1v-1.72a.818.818 0 0 0-.514-.759z"
+            stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
 
+    <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="icon-education">
+        <path d="M12 5.625V14" stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="round"></path>
+        <path
+            d="M14.125 3.5C12.951 3.5 12 4.45 12 5.625 12 4.451 11.05 3.5 9.875 3.5H4.5a1 1 0 0 0-1 1v11.875a2 2 0 0 0 2 2h4.375c1.174 0 2.125.95 2.125 2.125 0-1.174.95-2.125 2.125-2.125H18.5a2 2 0 0 0 2-2V4.5a1 1 0 0 0-1-1h-5.375z"
+            stroke="var(--icon-stroke)" stroke-miterlimit="10" stroke-linecap="square"></path>
+    </symbol>
+
+</svg>
+<div class="app-logo" style="display: none;"></div>
+<nav class="navbar navbar-light navbar-expand-lg" style="display: block !important;">
+    <div class="container">
+        <div class="lp-logo">
+            <img src="/files/logo_academy.png" alt="cosumar logo">
+        </div>
+        <a class="navbar-brand" href="/parcours"><span>BIENVENUE {{ member.full_name }} !</span>
+            <span>Que souhaitez-vous apprendre aujourd'hui ?</span></a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="mr-auto navbar-nav">
+            </ul>
+            <ul class="ml-auto navbar-nav">
+                <!-- post login tools -->
+                <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login">
+                    <a class="nav-link nav-avatar" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <span class="user-image-wrapper"><span class="avatar avatar-medium filterable" title="ismail"
+                                data-filter="_assign,like,%null%">
+                                <div class="avatar-frame standard-image"
+                                    style="background-color: var(--purple-avatar-bg); color: var(--purple-avatar-color)">
+                                    i
+                                </div>
+                            </span></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" href="/me"
+                            rel="nofollow">
+                            My Account
+                        </a><a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
+                            Log out
+                        </a><a class="dropdown-item switch-to-desk" href="/app">Switch To Desk</a>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-login-area" href="/login" style="display: none;">Login</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group mb-0 hide" id="language-switcher">
+            <select class="form-control"></select>
+        </div>
+    </div>
+    <div class="recap">
+        {% for info in recap_data %}
+        <div class="info-container">
+            <img src="/files/img-{{info[2]}}.png" />
+            <div class="txt-info">
+                {{ info[1] }} Formations
+                <div class="sub-txt">{{ info[0] }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</nav>
 <div class="common-page-style">
+    <section class="hb-side-bar">
+        <ul class="menu-main">
+            <li data-link="oadazk" class="{{ 'active' if tab=='dashboard' else '' }}"><img
+                    src="/files/dashboard.png" />Tableau de bord</li>
+            <li data-link="" class="{{ 'active' if tab=='parcours' else '' }}"><img src="/files/parcours.png" />Mon
+                parcours</li>
+            <li data-link="feasqda" class="{{ 'active' if tab=='courses' else '' }}"><img
+                    src="/files/messessions.png" />Mes formations</li>
+            <li data-link="aozdlaz" class="{{ 'active' if tab=='quiz' else '' }}"><img src="/files/certificat.png" />Mes
+                certificats</li>
+            <li data-link="Solidity" class="{{ 'active' if tab=='librarie' else '' }}"><img
+                    src="/files/biblio.png" />Bibliothèque</li>
+            <li data-link="forum" class="{{ 'active' if tab=='forum' else '' }}"><img src="/files/forum.png" />Forum
+            </li>
+        </ul>
+        <ul class="menu-footer">
+            <li>Paramétres</li>
+            <li>Déconnexion</li>
+        </ul>
+    </section>
     <div class="container course-details-page">
 
         <div class="course-content-parent">
@@ -31,8 +118,8 @@
                 <div class="">
                     <div class="progress-percent m-0">{{ progress }}% {{ _("Completed") }}</div>
                     <div class="progress" title="{{ progress }}% Completed">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress }}"
-                        aria-valuemin="0" aria-valuemax="100" style="width:{{ progress }}%">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0"
+                            aria-valuemax="100" style="width:{{ progress }}%">
                         </div>
                     </div>
                 </div>
@@ -40,7 +127,8 @@
 
                 <div class="course-details-outline">
                     {% set classname = class_info.name if class_info else False %}
-                    {{ widgets.CourseOutline(course=course, membership=membership, lesson_page=True, classname=classname) }}
+                    {{ widgets.CourseOutline(course=course, membership=membership, lesson_page=True,
+                    classname=classname) }}
                 </div>
             </div>
             <div class="lesson-parent">
@@ -60,29 +148,29 @@
 {% macro BreadCrumb(course, lesson, class_info) %}
 <div class="breadcrumb">
     {% if class_info %}
-        <a class="dark-links" href="/courses">
-            {{ _("All Batches") }}
-        </a>
-        <img class="ml-1 mr-1" src="/assets/lms/icons/chevron-right.svg">
-        <a class="dark-links" href="/batches/{{ class_info.name }}">
-            {{ class_info.title }}
-        </a>
-        <img class="ml-1 mr-1" src="/assets/lms/icons/chevron-right.svg">
-        <span class="breadcrumb-destination">
-            {{ lesson.title }}
-        </span>
+    <a class="dark-links" href="/courses">
+        {{ _("All Batches") }}
+    </a>
+    <img class="ml-1 mr-1" src="/assets/lms/icons/chevron-right.svg">
+    <a class="dark-links" href="/batches/{{ class_info.name }}">
+        {{ class_info.title }}
+    </a>
+    <img class="ml-1 mr-1" src="/assets/lms/icons/chevron-right.svg">
+    <span class="breadcrumb-destination">
+        {{ lesson.title }}
+    </span>
     {% else %}
-        <a class="dark-links" href="/courses">
-            {{ _("All Courses") }}
-        </a>
-        <img class="ml-1 mr-1" src="/assets/lms/icons/chevron-right.svg">
-        <a class="dark-links" href="/courses/{{ course.name }}">
-            {{ course.title }}
-        </a>
-        <img class="ml-1 mr-1" src="/assets/lms/icons/chevron-right.svg">
-        <span class="breadcrumb-destination">
-            {{ lesson.title }}
-        </span>
+    <a class="dark-links" href="/courses">
+        {{ _("All Courses") }}
+    </a>
+    <img class="ml-1 mr-1" src="/assets/lms/icons/chevron-right.svg">
+    <a class="dark-links" href="/courses/{{ course.name }}">
+        {{ course.title }}
+    </a>
+    <img class="ml-1 mr-1" src="/assets/lms/icons/chevron-right.svg">
+    <span class="breadcrumb-destination">
+        {{ lesson.title }}
+    </span>
     {% endif %}
 </div>
 {% endmacro %}
@@ -109,9 +197,9 @@
         </div>
 
         <div class="course-home-headings title {% if membership %} is-member {% endif %}" id="title"
-            data-index="{{ lesson_index }}" data-course="{{ course.name }}" data-chapter="{{ chapter }}"
-            {% if lesson.name %} data-lesson="{{ lesson.name }}" {% endif %}
-            >{% if lesson.title %}{{ lesson.title }}{% endif %}</div>
+            data-index="{{ lesson_index }}" data-course="{{ course.name }}" data-chapter="{{ chapter }}" {% if
+            lesson.name %} data-lesson="{{ lesson.name }}" {% endif %}>{% if lesson.title %}{{ lesson.title }}{% endif
+            %}</div>
     </div>
 
     <!-- Instructors -->
@@ -120,24 +208,24 @@
         {% for instructor in instructors %}
         {% if ins_len > 1 and loop.index == 1 %}
         <div class="avatar-group overlap">
-        {% endif %}
-        {{ widgets.Avatar(member=instructor, avatar_class="avatar-small") }}
+            {% endif %}
+            {{ widgets.Avatar(member=instructor, avatar_class="avatar-small") }}
 
-        {% if ins_len > 1 and loop.index == ins_len %}
+            {% if ins_len > 1 and loop.index == ins_len %}
         </div>
         {% endif %}
         {% endfor %}
         <a class="button-links ml-1" href="{{ get_profile_url(instructors[0].username) }}">
-        <span class="course-meta">
-            {% if ins_len == 1 %}
+            <span class="course-meta">
+                {% if ins_len == 1 %}
                 {{ instructors[0].full_name }}
-            {% elif ins_len == 2 %}
+                {% elif ins_len == 2 %}
                 {{ instructors[0].full_name.split(" ")[0] }} and {{ instructors[1].full_name.split(" ")[0] }}
-            {% else %}
-                {% set suffix = "other" if ins_len - 1 == 1 else "others"  %}
+                {% else %}
+                {% set suffix = "other" if ins_len - 1 == 1 else "others" %}
                 {{ instructors[0].full_name.split(" ")[0] }} and {{ ins_len - 1 }} {{ suffix }}
-            {% endif %}
-        </span>
+                {% endif %}
+            </span>
         </a>
         <div class="ml-5 course-meta">
             {{ frappe.utils.format_date(lesson.creation, "medium") }}
@@ -148,38 +236,40 @@
     <div class="markdown-source lesson-content-card">
         {% if show_lesson %}
 
-            {% if is_instructor and not lesson.include_in_preview %}
-            <div class="alert alert-info alert-dismissible mb-4">
-                {{ _("This lesson is not available for preview. As you are the Instructor of the course only you can see it.") }}
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            </div>
-            {% endif %}
+        {% if is_instructor and not lesson.include_in_preview %}
+        <div class="alert alert-info alert-dismissible mb-4">
+            {{ _("This lesson is not available for preview. As you are the Instructor of the course only you can see
+            it.") }}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+        {% endif %}
 
-            {% if instructor_notes and (is_moderator or instructor or is_evaluator) %}
-            <div class="alert alert-secondary mb-4">
-                <div class="bold-heading collapse-section collapsed" data-toggle="collapse" data-target="#instructor-notes">
-                    <svg class="icon icon-sm mt-1 pull-right">
-                        <use href="#icon-up-line"></use>
-                    </svg>
-                    <div>
-                        {{ _("Instructor Notes") }}
-                    </div>
-                </div>
-                <div class="collapse" id="instructor-notes">
-                    {{ instructor_notes }}
+        {% if instructor_notes and (is_moderator or instructor or is_evaluator) %}
+        <div class="alert alert-secondary mb-4">
+            <div class="bold-heading collapse-section collapsed" data-toggle="collapse" data-target="#instructor-notes">
+                <svg class="icon icon-sm mt-1 pull-right">
+                    <use href="#icon-up-line"></use>
+                </svg>
+                <div>
+                    {{ _("Instructor Notes") }}
                 </div>
             </div>
-            {% endif %}
+            <div class="collapse" id="instructor-notes">
+                {{ instructor_notes }}
+            </div>
+        </div>
+        {% endif %}
 
-            {{ render_html(lesson) }}
+        {{ render_html(lesson) }}
 
         {% else %}
-            {% set course_link = "<a class='enroll-in-course' data-course=" + course.name | urlencode + " href=''>" + _('here') +  "</a>" %}
-            <div class="alert alert-info mb-0">
-                {{ _("There is no preview available for this lesson.
-                Please join the course to access it.
-                Click {0} to enroll.").format(course_link) }}
-            </div>
+        {% set course_link = "<a class='enroll-in-course' data-course=" + course.name | urlencode + " href=''>" +
+            _('here') + "</a>" %}
+        <div class="alert alert-info mb-0">
+            {{ _("There is no preview available for this lesson.
+            Please join the course to access it.
+            Click {0} to enroll.").format(course_link) }}
+        </div>
         {% endif %}
     </div>
 
@@ -193,73 +283,74 @@
 
 <!-- Pagination -->
 {% macro pagination(prev_url, next_url) %}
-    {% if prev_url or next_url %}
-    <div class="lesson-pagination">
-        {% if prev_url %}
-        <a class="btn btn-secondary btn-sm prev" href="{{ prev_url }}">
-            {{ _("Previous Lesson") }}
-        </a>
-        {% endif %}
-
-        {% if next_url %}
-        <a class="btn btn-primary btn-sm next pull-right" href="{{ next_url }}">
-            {{ _("Next Lesson") }}
-        </a>
-        {% endif %}
-    </div>
+{% if prev_url or next_url %}
+<div class="lesson-pagination">
+    {% if prev_url %}
+    <a class="btn btn-secondary btn-sm prev" href="{{ prev_url }}">
+        {{ _("Previous Lesson") }}
+    </a>
     {% endif %}
+
+    {% if next_url %}
+    <a class="btn btn-primary btn-sm next pull-right" data-toggle="{{ next_url }}">
+        {{ _("Next Lesson") }}
+    </a>
+    {% endif %}
+</div>
+{% endif %}
 {% endmacro %}
 
 {% macro UploadAttachments() %}
-    <div class="attachments-parent">
-        <div class="attachment-controls">
-            <div class="show-attachments" data-toggle="collapse" data-target="#collapse-attachments" aria-expanded="false">
-                <svg class="icon icon-sm">
-                    <use class="" href="#icon-attachment">
-                </svg>
-                <span class="attachment-count" data-count="0">0 {{ _("attachments") }}</span>
-            </div>
-            <div class="add-attachment">
-                <span class="btn btn-sm btn-secondary">
-                    <svg class="icon icon-sm">
-                        <use class="" href="#icon-upload">
-                    </svg>
-                    {{ _("Upload Attachments") }}
-                </span>
-            </div>
+<div class="attachments-parent">
+    <div class="attachment-controls">
+        <div class="show-attachments" data-toggle="collapse" data-target="#collapse-attachments" aria-expanded="false">
+            <svg class="icon icon-sm">
+                <use class="" href="#icon-attachment">
+            </svg>
+            <span class="attachment-count" data-count="0">0 {{ _("attachments") }}</span>
         </div>
-        <table class="attachments common-card-style collapse hide" id="collapse-attachments"></table>
+        <div class="add-attachment">
+            <span class="btn btn-sm btn-secondary">
+                <svg class="icon icon-sm">
+                    <use class="" href="#icon-upload">
+                </svg>
+                {{ _("Upload Attachments") }}
+            </span>
+        </div>
     </div>
+    <table class="attachments common-card-style collapse hide" id="collapse-attachments"></table>
+</div>
 {% endmacro %}
 
 <!-- Discussions Component -->
 {% macro Discussions() %}
-    {% set topics_count = frappe.db.count("Discussion Topic", {
-        "reference_doctype": "Course Lesson",
-        "reference_docname": lesson.name
-    }) %}
-    {% set condition = is_instructor(course.name) or membership %}
-    {% set doctype, docname = _("Course Lesson"), lesson.name %}
-    {% set title = "Questions" if topics_count else "" %}
-    {% set cta_title = "Ask a Question" %}
-    {% set button_name = _("Start Learning") %}
-    {% set redirect_to = "/courses/" + course.name %}
-    {% set empty_state_title = _("Have a doubt?") %}
-    {% set empty_state_subtitle = _("Post it here, our mentors will help you out.") %}
-    <div class="pt-8">
-        {% include "frappe/templates/discussions/discussions_section.html" %}
-    </div>
+{% set topics_count = frappe.db.count("Discussion Topic", {
+"reference_doctype": "Course Lesson",
+"reference_docname": lesson.name
+}) %}
+{% set condition = is_instructor(course.name) or membership %}
+{% set doctype, docname = _("Course Lesson"), lesson.name %}
+{% set title = "Questions" if topics_count else "" %}
+{% set cta_title = "Ask a Question" %}
+{% set button_name = _("Start Learning") %}
+{% set redirect_to = "/courses/" + course.name %}
+{% set empty_state_title = _("Have a doubt?") %}
+{% set empty_state_subtitle = _("Post it here, our mentors will help you out.") %}
+<div class="pt-8">
+    {% include "frappe/templates/discussions/discussions_section.html" %}
+</div>
 {% endmacro %}
 
 
 {%- block script %}
-    {{ super() }}
-    {{ include_script('controls.bundle.js') }}
-    <script type="text/javascript">
-        var page_context = {{ page_context | tojson }};
-        {% include "lms/templates/quiz/quiz.js" %}
-    </script>
-    {% for ext in page_extensions %}
-    {{ ext.render_footer() }}
-    {% endfor %}
+{{ super() }}
+{{ include_script('controls.bundle.js') }}
+<script type="text/javascript">
+    var page_context = {{ page_context | tojson }};
+    var next_id = {{ next_id }}
+    {% include "lms/templates/quiz/quiz.js" %}
+</script>
+{% for ext in page_extensions %}
+{{ ext.render_footer() }}
+{% endfor %}
 {%- endblock %}

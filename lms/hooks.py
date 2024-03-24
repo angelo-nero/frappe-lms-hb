@@ -88,6 +88,7 @@ setup_wizard_requires = "assets/lms/js/setup_wizard.js"
 # Override standard doctype classes
 
 override_doctype_class = {
+	"File": "lms.overrides.file.LMSFile",
 	"User": "lms.overrides.user.CustomUser",
 	"Web Template": "lms.overrides.web_template.CustomWebTemplate",
 }

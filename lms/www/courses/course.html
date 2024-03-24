@@ -200,9 +200,9 @@
 <div class="course-overlay-card">
 
     {% if course.video_link %}
-    <iframe class="preview-video" frameborder="0" allowfullscreen
-        src="https://www.youtube.com/embed/{{ course.video_link }}"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+    <video controls="" width="100%" controlslist="nodownload">
+        <source src="{{ course.video_link }}">
+    </video>
     {% endif %}
 
     <div class="course-overlay-content">

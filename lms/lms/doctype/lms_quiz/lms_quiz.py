@@ -59,12 +59,11 @@ def set_total_marks(quiz, questions):
 @frappe.whitelist()
 def quiz_summary(quiz, results):
 	score = 0
+	total_marks = 0
 	results = results and json.loads(results)
-
 	for result in results:
-		correct = result["is_correct"][0]
-		for point in result["is_correct"]:
-			correct = correct and point
+		correct = check_answer(result["question"], result["type"], result["answer"])
+		
 		result["is_correct"] = correct
 
 		question_details = frappe.db.get_value(
@@ -73,23 +72,21 @@ def quiz_summary(quiz, results):
 			["question", "marks"],
 			as_dict=1,
 		)
-
 		result["question_name"] = question_details.question
 		result["question"] = frappe.db.get_value(
 			"LMS Question", question_details.question, "question"
 		)
-		marks = question_details.marks if correct else 0
-
+		marks = question_details.marks * correct
+		total_marks+= question_details.marks
 		result["marks"] = marks
 		score += marks
 
 		del result["question_index"]
 
 	quiz_details = frappe.db.get_value(
-		"LMS Quiz", quiz, ["total_marks", "passing_percentage"], as_dict=1
+		"LMS Quiz", quiz, ["passing_percentage"], as_dict=1
 	)
-	score_out_of = quiz_details.total_marks
-	percentage = (score / score_out_of) * 100
+	percentage = (score / total_marks) * 100
 
 	submission = frappe.get_doc(
 		{
@@ -97,7 +94,7 @@ def quiz_summary(quiz, results):
 			"quiz": quiz,
 			"result": results,
 			"score": score,
-			"score_out_of": score_out_of,
+			"score_out_of": total_marks,
 			"member": frappe.session.user,
 			"percentage": percentage,
 			"passing_percentage": quiz_details.passing_percentage,
@@ -107,9 +104,9 @@ def quiz_summary(quiz, results):
 
 	return {
 		"score": score,
-		"score_out_of": score_out_of,
+		"score_out_of": total_marks,
 		"submission": submission.name,
-		"pass": percentage == quiz_details.passing_percentage,
+		"pass": percentage >= quiz_details.passing_percentage,
 		"percentage": percentage,
 	}
 
@@ -251,7 +248,7 @@ def get_question_details(question):
 
 @frappe.whitelist()
 def check_answer(question, type, answers):
-	answers = json.loads(answers)
+	#answers = json.loads(answers)
 	if type == "Choices":
 		return check_choice_answers(question, answers)
 	else:
@@ -260,20 +257,25 @@ def check_answer(question, type, answers):
 
 def check_choice_answers(question, answers):
 	fields = []
-	is_correct = []
-	for num in range(1, 5):
+	correct = 0
+	incorrect = 0
+	an_correct = 0
+	for num in range(1, 7):
 		fields.append(f"option_{cstr(num)}")
 		fields.append(f"is_correct_{cstr(num)}")
 
 	question_details = frappe.db.get_value("LMS Question", question, fields, as_dict=1)
-
-	for num in range(1, 5):
-		if question_details[f"option_{num}"] in answers:
-			is_correct.append(question_details[f"is_correct_{num}"])
-		else:
-			is_correct.append(0)
-
-	return is_correct
+	for num in range(1, 7):
+		if question_details[f"is_correct_{num}"]:
+			an_correct += 1
+			if question_details[f"option_{num}"] in answers:
+				correct += 1
+			else:
+				incorrect += 1
+		elif question_details[f"option_{num}"] in answers:
+			incorrect += 1
+	point = (correct - incorrect) / (an_correct if an_correct != 0 else 1)
+	return point if point > 0 else 0
 
 
 def check_input_answers(question, answer):

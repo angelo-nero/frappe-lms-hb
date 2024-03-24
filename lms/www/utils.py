@@ -65,6 +65,17 @@ def get_current_lesson_details(lesson_number, context, is_edit=False):
 	lesson_info.body = lesson_info.body.replace('"', "'")
 	return lesson_info
 
+def get_last_lesson_is_completed(lesson_number, context, is_edit=False):
+	details_list = list(filter(lambda x: cstr(x.number) == lesson_number, context.lessons))
+
+	if not len(details_list):
+		redirect_to_course(context.course)
+
+	completed_lesson = frappe.db.count(
+		"LMS Course Progress",
+		{"course": context.course.name, "lesson": details_list[0].name, "owner": frappe.session.user, "status": "Complete"},
+	)
+	return True if completed_lesson > 0 else False
 
 def get_assessments(batch, member=None):
 	if not member:

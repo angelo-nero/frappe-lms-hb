@@ -10,14 +10,6 @@ frappe.ready(() => {
 
 	$(window).scroll(() => {
 		let self = this;
-		if (
-			!$("#status-indicator").length &&
-			!self.marked_as_complete &&
-			$(".title").hasClass("is-member")
-		) {
-			self.marked_as_complete = true;
-			mark_progress();
-		}
 	});
 
 	$("#certification").click((e) => {
@@ -40,6 +32,29 @@ frappe.ready(() => {
 		frappe.utils.copy_to_clipboard($(e.currentTarget).data("link"));
 		$(".attachments").collapse("hide");
 	});
+	$(".menu-main > li").click((e) => {
+		if (e.currentTarget.attributes['data-link'].value == 'forum')
+			document.location.href = '/forum'
+		else
+			document.location.href = '/parcours?xsaoaz=' + e.currentTarget.attributes['data-link'].value
+	});
+	$(".btn-sm.next.pull-right").click((e) => {
+		if (e.currentTarget.attributes['data-toggle'].value !== '')
+			if (
+				!$("#status-indicator").length &&
+				!self.marked_as_complete &&
+				$(".title").hasClass("is-member")
+			) {
+				self.marked_as_complete = true;
+				mark_progress(e.currentTarget.attributes['data-toggle'].value)
+			} else if ($("#status-indicator").length &&
+				!self.marked_as_complete &&
+				$(".title").hasClass("is-member")) {
+				document.location.href = e.currentTarget.attributes['data-toggle'].value;
+			}
+
+
+	});
 });
 
 const save_current_lesson = () => {
@@ -51,7 +66,7 @@ const save_current_lesson = () => {
 	}
 };
 
-const mark_progress = () => {
+const mark_progress = (next = false) => {
 	let status = "Complete";
 	frappe.call({
 		method: "lms.lms.doctype.course_lesson.course_lesson.save_progress",
@@ -64,6 +79,8 @@ const mark_progress = () => {
 			if (data.message) {
 				change_progress_indicators();
 				show_certificate_if_course_completed(data);
+				if (next)
+					document.location.href = next;
 			}
 		},
 	});

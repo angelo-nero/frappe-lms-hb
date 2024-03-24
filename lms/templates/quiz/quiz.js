@@ -4,6 +4,7 @@ frappe.ready(() => {
 	this.answer = [];
 	this.is_correct = [];
 	this.show_answers = $("#quiz-title").data("show-answers");
+
 	this.current_index = 0;
 	localStorage.removeItem($("#quiz-title").data("name"));
 
@@ -121,7 +122,6 @@ const quiz_summary = (e = undefined) => {
 	e && e.preventDefault();
 	let quiz_name = $("#quiz-title").data("name");
 	let self = this;
-
 	frappe.call({
 		method: "lms.lms.doctype.lms_quiz.lms_quiz.quiz_summary",
 		args: {
@@ -145,10 +145,10 @@ const quiz_summary = (e = undefined) => {
 			$("#try-again").removeClass("hide");
 			self.quiz_submitted = true;
 			if (
-				this.hasOwnProperty("marked_as_complete") &&
-				data.message.pass
+				this.hasOwnProperty("marked_as_complete")
 			) {
 				mark_progress();
+				$(".lesson-pagination").append('<a class="btn btn-primary btn-sm next pull-right" href="/courses/' + $(".title").attr("data-course") + '/learn/' + next_id + '">Next Lesson</a>');
 			}
 		},
 	});
@@ -187,8 +187,8 @@ const check_answer = (e = undefined) => {
 	} else if (this.show_answers) {
 		$("#next").removeClass("hide");
 	}
-	parse_options();
 	this.current_index += 1;
+	parse_options();
 };
 
 const parse_options = () => {
@@ -212,32 +212,17 @@ const parse_options = () => {
 };
 
 const is_answer_correct = (type, user_answers, element) => {
-	frappe.call({
-		async: false,
-		method: "lms.lms.doctype.lms_quiz.lms_quiz.check_answer",
-		args: {
-			question: $(".active-question").data("name"),
-			type: type,
-			answers: user_answers,
-		},
-		callback: (data) => {
-			type == "Choices"
-				? parse_choices(element, data.message)
-				: parse_possible_answers(element, data.message);
-			add_to_local_storage();
-		},
-	});
+
+	type == "Choices"
+		? parse_choices(element)
+		: parse_possible_answers(element);
+	add_to_local_storage();
 };
 
-const parse_choices = (element, is_correct) => {
+const parse_choices = (element) => {
 	element.each((i, elem) => {
 		if ($(elem).prop("checked")) {
 			self.answer.push(decodeURIComponent($(elem).val()));
-			self.is_correct.push(is_correct[i]);
-			if (this.show_answers)
-				is_correct[i]
-					? add_icon(elem, "check")
-					: add_icon(elem, "wrong");
 		} else {
 			add_icon(elem, "minus-circle");
 		}
@@ -246,11 +231,6 @@ const parse_choices = (element, is_correct) => {
 
 const parse_possible_answers = (element, correct) => {
 	self.answer.push(decodeURIComponent($(element).val()));
-	self.is_correct.push(correct);
-	if (this.show_answers)
-		correct
-			? show_indicator("success", element)
-			: show_indicator("failure", element);
 };
 
 const show_indicator = (class_name, element) => {
@@ -281,9 +261,10 @@ const add_to_local_storage = () => {
 	let quiz_name = $("#quiz-title").data("name");
 	let quiz_stored = JSON.parse(localStorage.getItem(quiz_name));
 	let quiz_obj = {
+		question: $(".active-question").data("name"),
+		type: $(".active-question").data("type"),
 		question_index: this.current_index,
 		answer: self.answer.join(),
-		is_correct: self.is_correct,
 	};
 
 	quiz_stored ? quiz_stored.push(quiz_obj) : (quiz_stored = [quiz_obj]);
