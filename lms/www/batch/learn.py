@@ -93,10 +93,12 @@ WHERE luc.user_c = %(user_e)s and lut.status = 'Failed'""", values=values, as_di
 		context.prev_url = get_url(neighbours["prev"], context.course)
 		if neighbours["prev"] and context.lesson.depend_to:
 			if not get_last_lesson_is_completed(neighbours["prev"],  context):
-				context.lesson.body = '<div style="padding: 1.8rem 0;text-align: center;font-size: x-large;color: red;">Vous devez compléter le cours précédent !</div>'
+				context.lesson.body = '<div style="padding: 1.8rem 0;text-align: center;font-size: x-large;color: red;">Vous devez terminer la séquence précédente !</div>'
 				context.lesson.youtube = ""
 				context.lesson.quiz_id  =  ""
 				context.next_url = ""
+			elif not neighbours["next"]:
+				context.next_id = "endAndCert"
 			
 
 	meta_info = (

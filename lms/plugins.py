@@ -124,7 +124,7 @@ def quiz_renderer(quiz_name):
 	)
 	quiz.questions = []
 	fields = ["name", "question", "type", "multiple"]
-	for num in range(1, 5):
+	for num in range(1, 7):
 		fields.append(f"option_{num}")
 		fields.append(f"is_correct_{num}")
 		fields.append(f"explanation_{num}")

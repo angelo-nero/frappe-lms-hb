@@ -19,7 +19,7 @@ class CourseLesson(Document):
 			frappe.throw(_("Invalid Quiz ID"))
 
 	def on_update(self):
-		dynamic_documents = ["Exercise", "Quiz"]
+		dynamic_documents = ["Exercise"]
 		for section in dynamic_documents:
 			self.update_lesson_name_in_document(section)
 
@@ -96,7 +96,6 @@ def save_progress(lesson, course, status):
 	quiz = frappe.db.get_value("Course Lesson", lesson, "quiz_id")
 
 	if quiz:
-		passing_percentage = frappe.db.get_value("LMS Quiz", quiz, "passing_percentage")
 		if not frappe.db.exists(
 			"LMS Quiz Submission",
 			{
@@ -122,9 +121,37 @@ def save_progress(lesson, course, status):
 		).save(ignore_permissions=True)
 
 	progress = get_course_progress(course)
+	if progress == 100:
+		passing_percentage = frappe.db.get_value("LMS Course", course, "passing_percent")
+		career = frappe.get_doc("LMS User Career", {"user_c": frappe.session.user, "status": "Current" })
+	
+		if not passing_percentage  or passing_percentage==0:
+			passing_percentage = 50
+		
+		final_note = get_final_note(course)
+		user_trainning = frappe.get_doc("LMS User Training", {"parent": career.name, "training": course })
+		user_trainning.note = final_note
+		if final_note>= passing_percentage:
+			user_trainning.status = "Completed"
+		else:
+			user_trainning.status = "Failed"
+		user_trainning.save(ignore_permissions=True)
+
 	frappe.db.set_value("LMS Enrollment", membership, "progress", progress)
 	return progress
 
+def get_final_note(course):
+	values = {"user_e": frappe.session.user, "course": course}
+	data = frappe.db.sql("""select max(qs.creation),qs.quiz, percentage,coefficient from `tabLMS Quiz Submission` qs
+join `tabLMS Quiz` q on qs.quiz = q.name
+where catchip = 0 and qs.course = %(course)s and member=%(user_e)s
+group by  qs.quiz""", values=values, as_dict=0)
+	sum_coef = 0
+	sum_note = 0
+	for x in data:
+		sum_coef  += x[3] 
+		sum_note += (x[2] * x[3])
+	return sum_note / sum_coef
 
 @frappe.whitelist()
 def get_lesson_info(chapter):

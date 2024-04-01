@@ -96,7 +96,8 @@
    "fieldname": "quiz_id",
    "fieldtype": "Link",
    "label": "Quiz ID",
-   "options": "LMS Quiz"
+   "options": "LMS Quiz",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_9",
@@ -148,7 +149,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-14 10:12:25.474533",
+ "modified": "2024-03-28 15:15:26.066455",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "Course Lesson",

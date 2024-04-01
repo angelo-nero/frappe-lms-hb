@@ -1,6 +1,6 @@
 {% extends "lms/templates/lms_base.html" %}
 {% block title %}
-    {{  course.title if course and course.title else _("New Course") }}
+{{ course.title if course and course.title else _("New Course") }}
 {% endblock %}
 
 {% block page_content %}
@@ -16,7 +16,6 @@
 {% macro Header() %}
 <header class="sticky">
     <div class="container form-width">
-
         <div class="edit-header">
             <div class="page-title"> {{ _("Course Details") }} </div>
 
@@ -54,7 +53,8 @@
             </div>
         </div>
         <div class="">
-            <input id="title" type="text" class="field-input" {% if course.title %} data-course="{{ course.name }}" value="{{ course.title }}" {% endif %}>
+            <input id="title" type="text" class="field-input" {% if course.title %} data-course="{{ course.name }}"
+                value="{{ course.title }}" {% endif %}>
         </div>
     </div>
 
@@ -68,7 +68,8 @@
             </div>
         </div>
         <div class="">
-            <input id="intro" type="text" class="field-input" {% if course.short_introduction %} value="{{ course.short_introduction }}" {% endif %}>
+            <input id="intro" type="text" class="field-input" {% if course.short_introduction %}
+                value="{{ course.short_introduction }}" {% endif %}>
         </div>
     </div>
 
@@ -95,11 +96,14 @@
                 {{ _("Preview Video ID") }}
             </div>
             <div class="field-description">
-                {{ _("Enter the Preview Video ID. The ID is the part of the URL after <code>watch?v=</code>. For example, if the URL is <code>https://www.youtube.com/watch?v=QH2-TGUlwu4</code>, the ID is <code>QH2-TGUlwu4</code>") }}
+                {{ _("Enter the Preview Video ID. The ID is the part of the URL after <code>watch?v=</code>. For
+                example, if the URL is <code>https://www.youtube.com/watch?v=QH2-TGUlwu4</code>, the ID is
+                <code>QH2-TGUlwu4</code>") }}
             </div>
         </div>
         <div class="">
-            <input id="video-link" type="text" class="field-input" {% if course.video_link %} value="{{ course.video_link }}" {% endif %}>
+            <input id="video-link" type="text" class="field-input" {% if course.video_link %}
+                value="{{ course.video_link }}" {% endif %}>
         </div>
     </div>
 
@@ -114,14 +118,14 @@
         </div>
         <div class="tags field-input">
             {% for tag in get_tags(course.name) %}
-                <button class="btn btn-secondary btn-sm mr-2 text-uppercase">
-                    {{ tag }}
-                    <span class="btn-remove">
-                        <svg class="icon icon-sm">
-                            <use class="" href="#icon-close"></use>
-                        </svg>
-                    </span>
-                </button>
+            <button class="btn btn-secondary btn-sm mr-2 text-uppercase">
+                {{ tag }}
+                <span class="btn-remove">
+                    <svg class="icon icon-sm">
+                        <use class="" href="#icon-close"></use>
+                    </svg>
+                </span>
+            </button>
             {% endfor %}
             <input type="text" class="invisible-input" id="tags-input">
         </div>
@@ -172,11 +176,12 @@
             {{ _("The price of this course.") }}
         </div>
         <div class="">
-            <input id="course-price" type="number" class="field-input" {% if course.course_price %} value="{{ course.course_price }}" {% endif %}>
+            <input id="course-price" type="number" class="field-input" {% if course.course_price %}
+                value="{{ course.course_price }}" {% endif %}>
         </div>
     </div>
 
-     <div class="field-group price-field {% if not course.paid_course %} hide {% endif %}">
+    <div class="field-group price-field {% if not course.paid_course %} hide {% endif %}">
         <div class="field-label {% if course.paid_course %} reqd {% endif %}">
             {{ _("Currency") }}
         </div>
@@ -187,7 +192,7 @@
         <select class="field-input" id="currency">
             <option></option>
             {% for currency in currencies %}
-            <option value="{{ currency }}" {% if currency == course.currency %} selected {% endif %}>
+            <option value="{{ currency }}" {% if currency==course.currency %} selected {% endif %}>
                 {{ currency}}
             </option>
             {% endfor %}
@@ -211,6 +216,6 @@
 
 
 {%- block script %}
-    {{ super() }}
-    {{ include_script('controls.bundle.js') }}
+{{ super() }}
+{{ include_script('controls.bundle.js') }}
 {% endblock %}

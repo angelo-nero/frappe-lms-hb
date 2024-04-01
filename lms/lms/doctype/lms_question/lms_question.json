@@ -31,12 +31,24 @@
   "is_correct_4",
   "column_break_lknb",
   "explanation_4",
+  "seq_ckzjz",
+  "option_5",
+  "is_correct_5",
+  "column_break_kiklb",
+  "explanation_5",
+  "section_break_dbmud",
+  "option_6",
+  "is_correct_6",
+  "column_break_gj7tc",
+  "explanation_6",
   "section_break_hkfe",
   "possibility_1",
   "possibility_3",
+  "possibility_5",
   "column_break_wpjr",
   "possibility_2",
-  "possibility_4"
+  "possibility_4",
+  "possibility_6"
  ],
  "fields": [
   {
@@ -155,6 +167,38 @@
    "label": "Explanation"
   },
   {
+   "fieldname": "option_5",
+   "fieldtype": "Small Text",
+   "label": "Option 5"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_correct_5",
+   "fieldtype": "Check",
+   "label": "Is Correct"
+  },
+  {
+   "fieldname": "explanation_5",
+   "fieldtype": "Small Text",
+   "label": "Explanation"
+  },
+  {
+   "fieldname": "option_6",
+   "fieldtype": "Small Text",
+   "label": "Option 6"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_correct_6",
+   "fieldtype": "Check",
+   "label": "Is Correct"
+  },
+  {
+   "fieldname": "explanation_6",
+   "fieldtype": "Small Text",
+   "label": "Explanation"
+  },
+  {
    "default": "0",
    "fieldname": "multiple",
    "fieldtype": "Check",
@@ -182,6 +226,11 @@
    "label": "Possible Answer 3"
   },
   {
+   "fieldname": "possibility_5",
+   "fieldtype": "Small Text",
+   "label": "Possible Answer 5"
+  },
+  {
    "fieldname": "possibility_2",
    "fieldtype": "Small Text",
    "label": "Possible Answer 2"
@@ -190,11 +239,34 @@
    "fieldname": "possibility_4",
    "fieldtype": "Small Text",
    "label": "Possible Answer 4"
+  },
+  {
+   "fieldname": "possibility_6",
+   "fieldtype": "Small Text",
+   "label": "Possible Answer 6"
+  },
+  {
+   "depends_on": "eval: doc.type == 'Choices'",
+   "fieldname": "seq_ckzjz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_kiklb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.type == 'Choices'",
+   "fieldname": "section_break_dbmud",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_gj7tc",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-18 21:58:42.653317",
+ "modified": "2024-03-31 11:03:00.020544",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Question",

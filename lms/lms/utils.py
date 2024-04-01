@@ -91,6 +91,11 @@ def get_membership(course, member=None, batch=None):
 			membership.batch_title = frappe.db.get_value(
 				"LMS Batch Old", membership.batch_old, "title"
 			)
+		if membership and membership.progress == 100:
+			career = frappe.get_doc("LMS User Career", {"user_c": member, "status": "Current" })
+			user_trainning = frappe.get_doc("LMS User Training", {"parent": career.name, "training": course })
+			membership.final_result = user_trainning.status
+			membership.final_result_note = user_trainning.note
 		return membership
 
 	return False

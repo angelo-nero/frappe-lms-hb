@@ -283,3 +283,29 @@ a.navbar-brand span:nth-child(2) {
 .container {
     padding-top: 15px;
 }
+
+.final_result {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    letter-spacing: 0.005em;
+    margin-bottom: 10px;
+}
+
+.final_result.Failed {
+    color: #e10000;
+}
+
+.icons {
+    display: inline-block;
+    font-size: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    fill: transparent;
+    stroke: #192734;
+}

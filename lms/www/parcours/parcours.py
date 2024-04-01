@@ -42,13 +42,14 @@ WHERE luc.user_c = %(user_e)s and lut.status = 'Failed'""", values=values, as_di
         data = frappe.db.sql("""
                                 SELECT
                                 lut.idx,luc.career,module,lt.title,lut.status,lcti.is_open,lt.title,lcti.is_classroom,start_date,lt.categorie,lmd.parent_lms_module as parent_module
-                             ,lt.name   
+                             ,lt.name, enr.name   
                              FROM `tabLMS User Career` luc
                                 join `tabLMS User Training` lut on luc.name = lut.parent
                                 join `tabLMS Career Training` lct on luc.career = lct.career
                                 join `tabLMS Module`lmd on lmd.name = lct.module
                                 join `tabLMS Training` lcti on lct.name = lcti.parent and lcti.course = lut.training
                                 join `tabLMS Course` lt on lut.training = lt.name
+                                left join `tabLMS Enrollment` enr on enr.member = luc.user_c and enr.course = lut.training and enr.member_type = 'Student'
                                 left join (select start_date, student, training
                                                     from `tabLMS Class` cl
                                                             join `tabLMS Class Training` ti on cl.name = ti.parent
@@ -75,7 +76,7 @@ WHERE luc.user_c = %(user_e)s and lut.status = 'Failed'""", values=values, as_di
             if x[2] not in res_dict:
                 res_dict[x[2]] = []
             res_dict[x[2]].append({"training" : x[3], "status": x[4] if x[4] != 'Not started' else 'not-started', "is_open": x[5], "course": x[11]
-            , "is_classroom": x[7],"start_date":x[8], "tag":x[9],"classroom": 'CLUB' if x[7] else 'E-Learning'
+            , "is_classroom": x[7],"start_date":x[8], "tag":x[9],"classroom": 'CLUB' if x[7] else 'E-Learning', "inscrit": x[12]
                 
             })
         context.title_ = title

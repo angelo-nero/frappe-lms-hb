@@ -60,17 +60,17 @@ class LMSEnrollment(Document):
 def create_membership(
 	course, batch=None, member=None, member_type="Student", role="Member"
 ):
-	frappe.get_doc(
-		{
-			"doctype": "LMS Enrollment",
-			"batch_old": batch,
-			"course": course,
-			"role": role,
-			"member_type": member_type,
-			"member": member or frappe.session.user,
-		}
-	).save(ignore_permissions=True)
-	return "OK"
+	# frappe.get_doc(
+	# 	{
+	# 		"doctype": "LMS Enrollment",
+	# 		"batch_old": batch,
+	# 		"course": course,
+	# 		"role": role,
+	# 		"member_type": member_type,
+	# 		"member": member or frappe.session.user,
+	# 	}
+	# ).save(ignore_permissions=True)
+	return "KO"
 
 
 @frappe.whitelist()

@@ -148,7 +148,8 @@ const quiz_summary = (e = undefined) => {
 				this.hasOwnProperty("marked_as_complete")
 			) {
 				mark_progress();
-				$(".lesson-pagination").append('<a class="btn btn-primary btn-sm next pull-right" href="/courses/' + $(".title").attr("data-course") + '/learn/' + next_id + '">Next Lesson</a>');
+				if ($(".lesson-pagination .next").length == 0)
+					$(".lesson-pagination").append('<a class="btn btn-primary btn-sm next pull-right" href="/courses/' + $(".title").attr("data-course") + '/learn/' + next_id + '">Next Lesson</a>');
 			}
 		},
 	});

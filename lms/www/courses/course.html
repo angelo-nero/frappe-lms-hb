@@ -206,18 +206,20 @@
     {% endif %}
 
     <div class="course-overlay-content">
-
+        {% if membership and membership.final_result %}
+        <div class="final_result {{ membership.final_result }}">
+            <svg class="icons icon-xl mr-1">
+                <use class="" href="#icon-{{ 'failed' if membership.final_result == 'Failed' else 'completed' }}">
+            </svg>
+            <span class="status">{{ membership.final_result }}</span>
+            <span class="note">{{ membership.final_result_note }} %</span>
+        </div>
+        {% endif %}
         <div class="cta-parent">
             {{ CTASection(course, membership) }}
         </div>
 
         {{ Notes(course) }}
-
-        {% if course.paid_course %}
-        <div class="vertically-center mb-3 bold-heading">
-            {{ frappe.utils.fmt_money(course.course_price, 0, course.currency) }}
-        </div>
-        {% endif %}
 
         <div class="vertically-center mb-3">
             <svg class="icon icon-md mr-1">
@@ -320,11 +322,6 @@ membership.current_lesson else "1.1" if first_lesson_exists(course.name) else No
         {{ _("Continue Learning") }}
     </a>
 
-    {% elif course.paid_course and not is_instructor %}
-    <a class="btn btn-primary wide-button" href="/billing/course/{{ course.name | urlencode }}">
-        {{ _("Buy This Course") }}
-    </a>
-
     {% elif show_start_learing_cta(course, membership) %}
     <div class="btn btn-primary wide-button enroll-in-course" data-course="{{ course.name | urlencode }}">
         {{ _("Start Learning") }}
@@ -333,7 +330,7 @@ membership.current_lesson else "1.1" if first_lesson_exists(course.name) else No
 
     {% set progress = frappe.utils.cint(membership.progress) %}
 
-    {% if membership and course.enable_certification %}
+    {% if membership and membership.final_result == 'Completed' and course.enable_certification %}
     {% if certificate %}
     <a class="btn btn-secondary wide-button mt-2" href="/courses/{{ course.name }}/{{ certificate }}">
         {{ _("Get Certificate") }}

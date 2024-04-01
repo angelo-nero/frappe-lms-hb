@@ -10,7 +10,9 @@
  "field_order": [
   "user_c",
   "career",
-  "status"
+  "status",
+  "note",
+  "training"
  ],
  "fields": [
   {
@@ -30,17 +32,31 @@
    "reqd": 1
   },
   {
+   "default": "Current",
+   "depends_on": "eval:!cur_frm.is_new()",
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Statut",
-   "options": "Current",
+   "options": "Current\nTermin\u00e9",
    "reqd": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Commentaire"
+  },
+  {
+   "depends_on": "eval:!cur_frm.is_new()",
+   "fieldname": "training",
+   "fieldtype": "Table",
+   "label": "Cours",
+   "options": "LMS User Training"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-01-22 12:12:48.005791",
+ "modified": "2024-03-31 13:44:24.517189",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS User Career",

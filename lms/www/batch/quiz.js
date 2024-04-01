@@ -53,7 +53,7 @@ const get_question_fields = (values = {}) => {
 			default: values.type || "Choices",
 		},
 	];
-	Array.from({ length: 4 }, (x, i) => {
+	Array.from({ length: 6 }, (x, i) => {
 		num = i + 1;
 
 		dialog_fields.push({

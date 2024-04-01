@@ -274,6 +274,7 @@ a.navbar-brand span:nth-child(2) {
     background: #fff;
     width: 100%;
     padding: 0;
+    padding-bottom: 50px;
 }
 
 .course-home-top-container {
@@ -282,4 +283,8 @@ a.navbar-brand span:nth-child(2) {
 
 .container {
     padding-top: 15px;
+}
+
+video {
+    border: 2px solid #eeeeee;
 }

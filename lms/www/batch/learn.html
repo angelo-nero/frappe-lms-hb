@@ -266,9 +266,7 @@
         {% set course_link = "<a class='enroll-in-course' data-course=" + course.name | urlencode + " href=''>" +
             _('here') + "</a>" %}
         <div class="alert alert-info mb-0">
-            {{ _("There is no preview available for this lesson.
-            Please join the course to access it.
-            Click {0} to enroll.").format(course_link) }}
+            {{ _("There is no preview available for this lesson.") }}
         </div>
         {% endif %}
     </div>
@@ -294,6 +292,11 @@
     {% if next_url %}
     <a class="btn btn-primary btn-sm next pull-right" data-toggle="{{ next_url }}">
         {{ _("Next Lesson") }}
+    </a>
+    {% endif %}
+    {% if next_id == 'endAndCert' and get_progress(course.name, lesson.name) != 'Complete' %}
+    <a class="btn btn-primary btn-sm next pull-right" data-toggle="end">
+        {{ _("Terminer") }}
     </a>
     {% endif %}
 </div>
@@ -329,7 +332,7 @@
 "reference_docname": lesson.name
 }) %}
 {% set condition = is_instructor(course.name) or membership %}
-{% set doctype, docname = _("Course Lesson"), lesson.name %}
+{% set doctype, docname = _(""), lesson.name %}
 {% set title = "Questions" if topics_count else "" %}
 {% set cta_title = "Ask a Question" %}
 {% set button_name = _("Start Learning") %}
@@ -347,7 +350,7 @@
 {{ include_script('controls.bundle.js') }}
 <script type="text/javascript">
     var page_context = {{ page_context | tojson }};
-    var next_id = {{ next_id }}
+    var next_id = "{{ next_id }}"
     {% include "lms/templates/quiz/quiz.js" %}
 </script>
 {% for ext in page_extensions %}

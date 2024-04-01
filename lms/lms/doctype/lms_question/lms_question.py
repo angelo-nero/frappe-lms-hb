@@ -23,7 +23,7 @@ def validate_correct_answers(question):
 def validate_duplicate_options(question):
 	options = []
 
-	for num in range(1, 5):
+	for num in range(1, 7):
 		if question.get(f"option_{num}"):
 			options.append(question.get(f"option_{num}"))
 
@@ -69,6 +69,8 @@ def get_correct_options(question):
 		"is_correct_2",
 		"is_correct_3",
 		"is_correct_4",
+		"is_correct_5",
+		"is_correct_6",
 	]
 	for field in correct_option_fields:
 		if question.get(field) == 1:
@@ -83,7 +85,7 @@ def get_question_details(question):
 		return
 
 	fields = ["question", "type", "name"]
-	for i in range(1, 5):
+	for i in range(1, 7):
 		fields.append(f"option_{i}")
 		fields.append(f"is_correct_{i}")
 		fields.append(f"explanation_{i}")

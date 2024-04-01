@@ -1,0 +1,106 @@
+{
+ "actions": [
+  {
+   "action": "lms.lms.doctype.lms_class.lms_class.end_session",
+   "action_type": "Server Action",
+   "label": "Fin de  session"
+  }
+ ],
+ "allow_rename": 1,
+ "autoname": "format:{title}-{start_date}",
+ "creation": "2024-01-22 22:00:58.472830",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "start_date",
+  "column_break_nzz4i",
+  "seat_count",
+  "end_date",
+  "section_break_n6jdg",
+  "description",
+  "training",
+  "students",
+  "is_closed"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Titre"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Datetime",
+   "label": "Date d\u00e9but"
+  },
+  {
+   "fieldname": "column_break_nzz4i",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "seat_count",
+   "fieldtype": "Int",
+   "label": "Nombre de place"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Datetime",
+   "label": "Date Fin"
+  },
+  {
+   "fieldname": "section_break_n6jdg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "training",
+   "fieldtype": "Table",
+   "label": "Cours",
+   "options": "LMS Class Training"
+  },
+  {
+   "fieldname": "students",
+   "fieldtype": "Table",
+   "label": "Apprenants",
+   "options": "LMS Class Student"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_closed",
+   "fieldtype": "Check",
+   "label": "Termin\u00e9e ?"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-31 08:51:50.348006",
+ "modified_by": "Administrator",
+ "module": "LMS",
+ "name": "LMS Class",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

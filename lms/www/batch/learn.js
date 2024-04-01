@@ -8,10 +8,6 @@ frappe.ready(() => {
 
 	save_current_lesson();
 
-	$(window).scroll(() => {
-		let self = this;
-	});
-
 	$("#certification").click((e) => {
 		create_certificate(e);
 	});
@@ -38,19 +34,21 @@ frappe.ready(() => {
 		else
 			document.location.href = '/parcours?xsaoaz=' + e.currentTarget.attributes['data-link'].value
 	});
+
 	$(".btn-sm.next.pull-right").click((e) => {
-		if (e.currentTarget.attributes['data-toggle'].value !== '')
+		next = e.currentTarget.attributes['data-toggle'].value;
+		if (next !== '')
 			if (
 				!$("#status-indicator").length &&
 				!self.marked_as_complete &&
 				$(".title").hasClass("is-member")
 			) {
 				self.marked_as_complete = true;
-				mark_progress(e.currentTarget.attributes['data-toggle'].value)
+				mark_progress(next)
 			} else if ($("#status-indicator").length &&
 				!self.marked_as_complete &&
-				$(".title").hasClass("is-member")) {
-				document.location.href = e.currentTarget.attributes['data-toggle'].value;
+				$(".title").hasClass("is-member") && next !== 'end') {
+				document.location.href = next;
 			}
 
 
@@ -79,7 +77,9 @@ const mark_progress = (next = false) => {
 			if (data.message) {
 				change_progress_indicators();
 				show_certificate_if_course_completed(data);
-				if (next)
+				if (next == 'end')
+					document.location.href = "/courses/" + $(".title").attr("data-course");
+				else if (next)
 					document.location.href = next;
 			}
 		},

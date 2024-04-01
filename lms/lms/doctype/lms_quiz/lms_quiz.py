@@ -27,6 +27,18 @@ class LMSQuiz(Document):
 				_("Rows {0} have the duplicate questions.").format(frappe.bold(comma_and(rows)))
 			)
 
+	def on_update(self):
+		linked_documents = {
+			row["name"] for row in frappe.get_all('Course Lesson', {"quiz_id": self.name})
+		}
+		for name in linked_documents:
+			ex = frappe.get_doc('Course Lesson', name)
+			ex.quiz_id = None
+			ex.save(ignore_permissions=True)
+		e = frappe.get_doc('Course Lesson', self.lesson)
+		e.quiz_id = self.name
+		e.save(ignore_permissions=True)
+	
 	def autoname(self):
 		if not self.name:
 			self.name = generate_slug(self.title, "LMS Quiz")
@@ -58,6 +70,7 @@ def set_total_marks(quiz, questions):
 
 @frappe.whitelist()
 def quiz_summary(quiz, results):
+	course = None
 	score = 0
 	total_marks = 0
 	results = results and json.loads(results)
@@ -93,6 +106,7 @@ def quiz_summary(quiz, results):
 			"doctype": "LMS Quiz Submission",
 			"quiz": quiz,
 			"result": results,
+			"course": course,
 			"score": score,
 			"score_out_of": total_marks,
 			"member": frappe.session.user,
@@ -123,7 +137,7 @@ def save_quiz(
 ):
 	if not has_course_moderator_role() or not has_course_instructor_role():
 		return
-
+	
 	values = {
 		"title": quiz_title,
 		"passing_percentage": passing_percentage,
@@ -236,7 +250,7 @@ def save_question(quiz, values, index):
 def get_question_details(question):
 	if frappe.db.exists("LMS Quiz Question", question):
 		fields = ["name", "question", "type"]
-		for num in range(1, 5):
+		for num in range(1, 7):
 			fields.append(f"option_{cstr(num)}")
 			fields.append(f"is_correct_{cstr(num)}")
 			fields.append(f"explanation_{cstr(num)}")
@@ -270,9 +284,9 @@ def check_choice_answers(question, answers):
 			an_correct += 1
 			if question_details[f"option_{num}"] in answers:
 				correct += 1
-			else:
-				incorrect += 1
-		elif question_details[f"option_{num}"] in answers:
+			#else:
+			#	incorrect += 1
+		elif question_details[f"option_{num}"] and question_details[f"option_{num}"] in answers:
 			incorrect += 1
 	point = (correct - incorrect) / (an_correct if an_correct != 0 else 1)
 	return point if point > 0 else 0

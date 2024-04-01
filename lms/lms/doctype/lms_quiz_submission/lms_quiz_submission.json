@@ -17,7 +17,8 @@
   "percentage",
   "passing_percentage",
   "section_break_6",
-  "result"
+  "result",
+  "catchip"
  ],
  "fields": [
   {
@@ -92,25 +93,31 @@
   },
   {
    "fieldname": "percentage",
-   "fieldtype": "Int",
+   "fieldtype": "Float",
    "label": "Percentage",
    "non_negative": 1,
    "read_only": 1,
    "reqd": 1
   },
   {
-    "fieldname": "passing_percentage",
-    "fieldtype": "Int",
-    "label": "Passing Percentage",
-    "non_negative": 1,
-    "read_only": 1,
-    "reqd": 1
+   "fieldname": "passing_percentage",
+   "fieldtype": "Int",
+   "label": "Passing Percentage",
+   "non_negative": 1,
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "catchip",
+   "fieldtype": "Check",
+   "label": "Rattrapage"
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-17 13:07:27.979975",
+ "modified": "2024-03-30 11:24:39.565914",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Quiz Submission",

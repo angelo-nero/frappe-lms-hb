@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "autoname": "format:{#####}-{course}",
+ "creation": "2024-01-25 09:04:21.934282",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "course",
+  "is_open",
+  "is_classroom",
+  "categorie"
+ ],
+ "fields": [
+  {
+   "fieldname": "course",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Cours",
+   "options": "LMS Course",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "is_open",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Open cours ?"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_classroom",
+   "fieldtype": "Check",
+   "label": "Cours pr\u00e9sentiel ?"
+  },
+  {
+   "fieldname": "categorie",
+   "fieldtype": "Data",
+   "label": "Cat\u00e9gorie"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-03-31 10:27:03.858708",
+ "modified_by": "Administrator",
+ "module": "LMS",
+ "name": "LMS Training",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

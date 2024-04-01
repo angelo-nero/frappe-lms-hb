@@ -133,7 +133,7 @@ Mon profil
                 <div class="module-training" data-trainning="{{parcour}}">
                     {% for item in parcours[parcour] %}
                     {% set class_read = '' %}
-                    {% if item.is_open or item.status != 'not-started' %}
+                    {% if item.is_open or item.status != 'not-started' or item.inscrit %}
                     <div onclick="window.open('/courses/{{item.course}}', '_blank');"
                         class="module-trainig-item active {{item.status}}">
                         {% set class_read = 'read-green' %}
@@ -156,7 +156,7 @@ Mon profil
                             <span class="span_status">EN COURS</span>
                             {% elif item.status == 'Failed' %}
                             <span class="span_status failed_s">FAILED</span>
-                            {% elif item.status == 'not-started' and item.is_open %}
+                            {% elif item.status == 'not-started' and (item.is_open or item.inscrit) %}
                             <span class="span_status">INSCRIT</span>
                             {% elif item.start_date and item.status == 'not-started' %}
                             <span class="span_status">PLANIFIÈ</span>

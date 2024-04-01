@@ -7,17 +7,16 @@
  "field_order": [
   "course",
   "member_type",
-  "payment",
+  "member_username",
   "column_break_3",
   "member",
   "member_name",
-  "member_username",
   "section_break_8",
+  "current_lesson",
   "cohort",
   "subgroup",
   "batch_old",
   "column_break_12",
-  "current_lesson",
   "progress",
   "role"
  ],
@@ -25,6 +24,7 @@
   {
    "fieldname": "batch_old",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Batch Old",
    "options": "LMS Batch Old"
   },
@@ -50,6 +50,7 @@
    "default": "Member",
    "fieldname": "role",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Role",
    "options": "\nMember\nAdmin"
   },
@@ -97,12 +98,14 @@
   {
    "fieldname": "cohort",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Cohort",
    "options": "Cohort"
   },
   {
    "fieldname": "subgroup",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Subgroup",
    "options": "Cohort Subgroup"
   },
@@ -113,17 +116,11 @@
   {
    "fieldname": "section_break_8",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "payment",
-   "fieldtype": "Link",
-   "label": "Payment",
-   "options": "LMS Payment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-02 12:41:25.139734",
+ "modified": "2024-03-31 09:12:07.168723",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Enrollment",

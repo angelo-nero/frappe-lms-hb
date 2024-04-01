@@ -2,8 +2,18 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("LMS Quiz", {
-	// refresh: function(frm) {
-	// }
+	refresh: function (frm) {
+	}
+});
+
+frappe.ui.form.on("LMS Quiz", "course", function (frm) {
+	frm.set_query("lesson", function () {
+		return {
+			"filters": {
+				"course": frm.doc.course
+			}
+		};
+	});
 });
 
 frappe.ui.form.on("LMS Quiz Question", {

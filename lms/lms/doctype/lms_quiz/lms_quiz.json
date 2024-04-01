@@ -19,11 +19,12 @@
   "section_break_sbjx",
   "questions",
   "section_break_3",
-  "lesson",
+  "course",
+  "time",
   "in_evaluation",
   "column_break_5",
-  "course",
-  "time"
+  "lesson",
+  "coefficient"
  ],
  "fields": [
   {
@@ -44,8 +45,7 @@
    "fieldname": "lesson",
    "fieldtype": "Link",
    "label": "Lesson",
-   "options": "Course Lesson",
-   "read_only": 1
+   "options": "Course Lesson"
   },
   {
    "default": "0",
@@ -60,12 +60,10 @@
    "label": "Time Per Question (in Seconds)"
   },
   {
-   "fetch_from": "lesson.course",
    "fieldname": "course",
    "fieldtype": "Link",
    "label": "Course",
-   "options": "LMS Course",
-   "read_only": 1
+   "options": "LMS Course"
   },
   {
    "fieldname": "column_break_5",
@@ -76,9 +74,10 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "1",
+   "default": "0",
    "fieldname": "show_answers",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Show Answers"
   },
   {
@@ -111,24 +110,30 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "0",
    "fieldname": "total_marks",
    "fieldtype": "Int",
    "label": "Total Marks",
    "non_negative": 1,
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "in_evaluation",
    "fieldtype": "Check",
    "label": "En \u00e9valuation finale ?"
+  },
+  {
+   "default": "1",
+   "fieldname": "coefficient",
+   "fieldtype": "Int",
+   "label": "Coefficient",
+   "non_negative": 1,
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-13 14:10:52.476148",
+ "modified": "2024-03-29 10:53:06.704319",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Quiz",
