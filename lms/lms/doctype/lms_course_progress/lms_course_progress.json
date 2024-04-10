@@ -45,7 +45,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Complete\nPartially Complete\nIncomplete"
+   "options": "Complete\nPartially Complete\nIncomplete\nRattrapage"
   },
   {
    "fieldname": "column_break_3",
@@ -67,7 +67,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-11-09 14:24:06.312623",
+ "modified": "2024-04-01 09:03:23.391144",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Course Progress",

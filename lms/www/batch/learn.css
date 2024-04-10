@@ -261,12 +261,8 @@ a.navbar-brand span:nth-child(2) {
     font-weight: 800;
 }
 
-
-.lp-logo img {
-    position: absolute;
-    width: 125px;
-    top: 10px;
-    left: 38px;
+.container.course-details-page {
+    flex: 1;
 }
 
 .common-page-style {

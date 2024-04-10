@@ -14,6 +14,7 @@ The PageExtension is used to load additinal stylesheets and scripts to
 be loaded in a webpage.
 """
 
+import random
 import frappe
 from urllib.parse import quote
 from frappe import _
@@ -119,6 +120,8 @@ def quiz_renderer(quiz_name):
 			"show_answers",
 			"show_submission_history",
 			"passing_percentage",
+			"nbr_question",
+			"time",
 		],
 		as_dict=True,
 	)
@@ -136,14 +139,14 @@ def quiz_renderer(quiz_name):
 		fields=["question", "marks"],
 		order_by="idx",
 	)
-
-	for question in questions:
+	_qsts = random.sample(questions, quiz.nbr_question)
+	for question in _qsts:
 		details = frappe.db.get_value("LMS Question", question.question, fields, as_dict=1)
 		details["marks"] = question.marks
 		quiz.questions.append(details)
 
 	no_of_attempts = frappe.db.count(
-		"LMS Quiz Submission", {"owner": frappe.session.user, "quiz": quiz_name}
+		"LMS Quiz Submission", {"owner": frappe.session.user, "catchup": 0, "quiz": quiz_name}
 	)
 
 	if quiz.show_submission_history:
@@ -153,7 +156,7 @@ def quiz_renderer(quiz_name):
 				"quiz": quiz.name,
 				"member": frappe.session.user,
 			},
-			["name", "score", "creation"],
+			["name", "score", "score_out_of", "creation"],
 			order_by="creation desc",
 		)
 

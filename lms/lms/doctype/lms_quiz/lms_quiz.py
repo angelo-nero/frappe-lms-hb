@@ -18,7 +18,17 @@ class LMSQuiz(Document):
 	def validate(self):
 		self.validate_duplicate_questions()
 		self.total_marks = set_total_marks(self.name, self.questions)
+		self.nbr_question = self.set_nbr_question()
 
+	def set_nbr_question(self):
+		nbr_total_qst = len(self.questions)
+		nbr_qst = self.nbr_question
+		if nbr_qst <= 0:
+			return nbr_total_qst
+		if nbr_qst > nbr_total_qst:
+			return nbr_total_qst
+		return nbr_qst
+	
 	def validate_duplicate_questions(self):
 		questions = [row.question for row in self.questions]
 		rows = [i + 1 for i, x in enumerate(questions) if questions.count(x) > 1]
@@ -85,6 +95,10 @@ def quiz_summary(quiz, results):
 			["question", "marks"],
 			as_dict=1,
 		)
+		if result["type"]  ==  "Choices":
+			result["is_open"] = 0
+		else:
+			result["is_open"] = 1
 		result["question_name"] = question_details.question
 		result["question"] = frappe.db.get_value(
 			"LMS Question", question_details.question, "question"

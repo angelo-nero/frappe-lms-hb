@@ -1,0 +1,126 @@
+<nav class="navbar navbar-light navbar-expand-lg" style="display: block !important;">
+    <div class="head">
+        <div class="lp-logo">
+            <img src="/files/logo_academy.png" alt="cosumar logo">
+        </div>
+        <div class="menu-tog-p">
+            <a class="menu-tog" onclick="$('.hb-side-bar').toggle()">
+                <svg class="icon">
+                    <use href="#icon-menu"></use>
+                </svg>
+            </a>
+            <a class="navbar-brand" href="/parcours"><span>BIENVENUE {{ member.full_name }} !</span>
+                <span>Que souhaitez-vous apprendre aujourd'hui ?</span></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="mr-auto navbar-nav">
+            </ul>
+            <ul class="ml-auto navbar-nav">
+                <!-- post login tools -->
+                <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login">
+                    <a class="nav-link nav-avatar" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <span class="user-image-wrapper"><span class="avatar avatar-medium filterable" title="ismail"
+                                data-filter="_assign,like,%null%">
+                                <div class="avatar-frame standard-image"
+                                    style="background-color: var(--purple-avatar-bg); color: var(--purple-avatar-color)">
+                                    i
+                                </div>
+                            </span></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" href="/me"
+                            rel="nofollow">
+                            My Account
+                        </a><a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
+                            Log out
+                        </a><a class="dropdown-item switch-to-desk" href="/app">Switch To Desk</a>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-login-area" href="/login" style="display: none;">Login</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group mb-0 hide" id="language-switcher">
+            <select class="form-control"></select>
+        </div>
+    </div>
+    <div class="recap">
+        {% for info in recap_data %}
+        <div class="info-container">
+            <img src="/files/img-{{info[2]}}.png" />
+            <div class="txt-info">
+                {{ info[1] }} Formations
+                <div class="sub-txt">{{ info[0] }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</nav>
+
+<style>
+    .head {
+        display: flex;
+    }
+
+    .lp-logo img {
+        width: 130px;
+        height: 100px;
+    }
+
+    .lp-logo {
+        width: 200px;
+        text-align: center;
+    }
+
+    a.navbar-brand {
+        flex: 1;
+    }
+
+    div#navbarSupportedContent {
+        width: 200px;
+        flex-basis: unset;
+        flex-grow: unset;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-tog {
+        display: none;
+    }
+
+    @media (max-width: 985px) {
+        .recap {
+            display: none;
+        }
+
+        .menu-tog-p {
+            display: flex;
+            align-self: start;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu-tog svg.icon {
+            stroke: #fff;
+            height: 45px;
+            width: 45px;
+        }
+
+        .menu-tog {
+            display: block;
+            margin-right: 10px;
+        }
+
+        .head {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a.navbar-brand {
+            align-self: start;
+        }
+    }
+</style>

@@ -77,8 +77,9 @@ const mark_progress = (next = false) => {
 			if (data.message) {
 				change_progress_indicators();
 				show_certificate_if_course_completed(data);
-				if (next == 'end')
-					document.location.href = "/courses/" + $(".title").attr("data-course");
+				if (next == 'end') {
+					document.location.href = "/courses/" + $(".title").attr("data-course") + "/?end=1";
+				}
 				else if (next)
 					document.location.href = next;
 			}
@@ -92,7 +93,7 @@ const change_progress_indicators = () => {
 
 const show_certificate_if_course_completed = (data) => {
 	if (
-		data.message == 100 &&
+		data.message.progress == 100 &&
 		!$(".next").length &&
 		$("#certification").hasClass("hide")
 	) {
@@ -268,3 +269,5 @@ const fetch_assignments = () => {
 		},
 	});
 };
+
+

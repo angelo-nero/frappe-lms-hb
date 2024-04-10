@@ -1,0 +1,66 @@
+<section class="hb-side-bar">
+    <ul class="menu-main">
+        <li data-link="oadazk" class="{{ 'active' if tab=='dashboard' else '' }}"><img
+                src="/files/dashboard.png" />Tableau de bord</li>
+        <li data-link="" class="{{ 'active' if tab=='parcours' else '' }}"><img src="/files/parcours.png" />Mon
+            parcours</li>
+        <li data-link="feasqda" class="{{ 'active' if tab=='courses' else '' }}"><img src="/files/messessions.png" />Mes
+            formations</li>
+        <li data-link="qsazae" class="{{ 'active' if tab=='standards' else '' }}"><img
+                src="/files/messessions.png" />Mes
+            standards opérationnels</li>
+        <li data-link="aozdlaz" class="{{ 'active' if tab=='quiz' else '' }}"><img src="/files/certificat.png" />Mes
+            certificats</li>
+        <li data-link="Solidity" class="{{ 'active' if tab=='librarie' else '' }}"><img
+                src="/files/biblio.png" />Bibliothèque</li>
+        <li data-link="forum" class="{{ 'active' if tab=='forum' else '' }}"><img src="/files/forum.png" />Forum</li>
+    </ul>
+    <ul class="menu-footer">
+        <li>Paramétres</li>
+        <li>Déconnexion</li>
+    </ul>
+</section>
+<style>
+    section.hb-side-bar {
+        width: 200px;
+        min-height: 100vh;
+        padding-top: 20px;
+        background: #d2edfc;
+    }
+
+    .hb-side-bar ul {
+        list-style: none;
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .hb-side-bar ul li {
+        padding-left: 42px;
+        margin: 30px 0;
+        line-height: 30px;
+        cursor: pointer;
+        color: #0b438e;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+    }
+
+    .hb-side-bar li.active {
+        font-weight: bolder;
+    }
+
+    .hb-side-bar .menu-main img {
+        width: 24px;
+        margin-right: 12px;
+    }
+
+    @media (max-width: 985px) {
+        section.hb-side-bar {
+            position: absolute;
+            z-index: 999;
+            display: none;
+        }
+    }
+</style>

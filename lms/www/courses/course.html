@@ -21,79 +21,9 @@
 
 </svg>
 <div class="app-logo" style="display: none;"></div>
-<nav class="navbar navbar-light navbar-expand-lg" style="display: block !important;">
-    <div class="container">
-        <div class="lp-logo">
-            <img src="/files/logo_academy.png" alt="cosumar logo">
-        </div>
-        <a class="navbar-brand" href="/parcours"><span>BIENVENUE {{ member.full_name }} !</span>
-            <span>Que souhaitez-vous apprendre aujourd'hui ?</span></a>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="mr-auto navbar-nav">
-            </ul>
-            <ul class="ml-auto navbar-nav">
-                <!-- post login tools -->
-                <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login">
-                    <a class="nav-link nav-avatar" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <span class="user-image-wrapper"><span class="avatar avatar-medium filterable" title="ismail"
-                                data-filter="_assign,like,%null%">
-                                <div class="avatar-frame standard-image"
-                                    style="background-color: var(--purple-avatar-bg); color: var(--purple-avatar-color)">
-                                    i
-                                </div>
-                            </span></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" href="/me"
-                            rel="nofollow">
-                            My Account
-                        </a><a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
-                            Log out
-                        </a><a class="dropdown-item switch-to-desk" href="/app">Switch To Desk</a>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-login-area" href="/login" style="display: none;">Login</a>
-                </li>
-            </ul>
-        </div>
-        <div class="form-group mb-0 hide" id="language-switcher">
-            <select class="form-control"></select>
-        </div>
-    </div>
-    <div class="recap">
-        {% for info in recap_data %}
-        <div class="info-container">
-            <img src="/files/img-{{info[2]}}.png" />
-            <div class="txt-info">
-                {{ info[1] }} Formations
-                <div class="sub-txt">{{ info[0] }}</div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</nav>
+{% include "lms/templates/navbar.html" %}
 <div class="common-page-style">
-    <section class="hb-side-bar">
-        <ul class="menu-main">
-            <li data-link="oadazk" class="{{ 'active' if tab=='dashboard' else '' }}"><img
-                    src="/files/dashboard.png" />Tableau de bord</li>
-            <li data-link="" class="{{ 'active' if tab=='parcours' else '' }}"><img src="/files/parcours.png" />Mon
-                parcours</li>
-            <li data-link="feasqda" class="{{ 'active' if tab=='courses' else '' }}"><img
-                    src="/files/messessions.png" />Mes formations</li>
-            <li data-link="aozdlaz" class="{{ 'active' if tab=='quiz' else '' }}"><img src="/files/certificat.png" />Mes
-                certificats</li>
-            <li data-link="Solidity" class="{{ 'active' if tab=='librarie' else '' }}"><img
-                    src="/files/biblio.png" />Bibliothèque</li>
-            <li data-link="forum" class="{{ 'active' if tab=='forum' else '' }}"><img src="/files/forum.png" />Forum
-            </li>
-        </ul>
-        <ul class="menu-footer">
-            <li>Paramétres</li>
-            <li>Déconnexion</li>
-        </ul>
-    </section>
+    {% include "lms/templates/side_bar/side_bar.html" %}
     <div class="course-home-top-container">
         {{ CourseHomeHeader(course) }}
         <div class="course-home-page">
@@ -209,7 +139,8 @@
         {% if membership and membership.final_result %}
         <div class="final_result {{ membership.final_result }}">
             <svg class="icons icon-xl mr-1">
-                <use class="" href="#icon-{{ 'failed' if membership.final_result == 'Failed' else 'completed' }}">
+                <use class="final-stat"
+                    href="#icon-{{ 'failed' if membership.final_result == 'Failed' else 'completed' }}">
             </svg>
             <span class="status">{{ membership.final_result }}</span>
             <span class="note">{{ membership.final_result_note }} %</span>
@@ -300,32 +231,16 @@ membership.current_lesson else "1.1" if first_lesson_exists(course.name) else No
         {{ _("Submit for Review") }}
     </div>
 
-    {% elif is_instructor and lesson_index %}
-    <a class="btn btn-primary wide-button" id="continue-learning"
-        href="{{ get_lesson_url(course.name, lesson_index) }}{{ course.query_parameter }}">
-        {{ _("Checkout Course") }}
-    </a>
-
-    {% elif course.upcoming and not is_user_interested and not is_instructor %}
-    <div class="btn btn-secondary wide-button notify-me" data-course="{{course.name | urlencode}}">
-        {{ _("Notify me when available") }}
-    </div>
-
-    {% elif is_cohort_staff(course.name, frappe.session.user) %}
-    <a class="btn btn-secondary button-links wide-button" href="/courses/{{course.name}}/manage">
-        {{ _("Manage Cohorts") }}
-    </a>
-
-    {% elif membership %}
+    {% elif membership and lesson_index %}
     <a class="btn btn-primary wide-button" id="continue-learning"
         href="{{ get_lesson_url(course.name, lesson_index) }}{{ course.query_parameter }}">
         {{ _("Continue Learning") }}
     </a>
 
     {% elif show_start_learing_cta(course, membership) %}
-    <div class="btn btn-primary wide-button enroll-in-course" data-course="{{ course.name | urlencode }}">
+    <a class="btn btn-primary wide-button" href="/courses/{{course.name}}/learn/1.1">
         {{ _("Start Learning") }}
-    </div>
+    </a>
     {% endif %}
 
     {% set progress = frappe.utils.cint(membership.progress) %}

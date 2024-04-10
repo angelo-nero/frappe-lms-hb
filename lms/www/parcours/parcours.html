@@ -35,78 +35,9 @@ Mon profil
 
 </svg>
 <div class="app-logo" style="display: none;"></div>
-<nav class="navbar navbar-light navbar-expand-lg" style="display: block !important;">
-    <div class="container">
-        <div class="lp-logo">
-            <img src="/files/logo_academy.png" alt="cosumar logo">
-        </div>
-        <a class="navbar-brand" href="/parcours"><span>BIENVENUE {{ member.full_name }} !</span>
-            <span>Que souhaitez-vous apprendre aujourd'hui ?</span></a>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="mr-auto navbar-nav">
-            </ul>
-            <ul class="ml-auto navbar-nav">
-                <!-- post login tools -->
-                <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login">
-                    <a class="nav-link nav-avatar" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <span class="user-image-wrapper"><span class="avatar avatar-medium filterable" title="ismail"
-                                data-filter="_assign,like,%null%">
-                                <div class="avatar-frame standard-image"
-                                    style="background-color: var(--purple-avatar-bg); color: var(--purple-avatar-color)">
-                                    i
-                                </div>
-                            </span></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu"><a class="dropdown-item" href="/me"
-                            rel="nofollow">
-                            My Account
-                        </a><a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
-                            Log out
-                        </a><a class="dropdown-item switch-to-desk" href="/app">Switch To Desk</a>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-login-area" href="/login" style="display: none;">Login</a>
-                </li>
-            </ul>
-        </div>
-        <div class="form-group mb-0 hide" id="language-switcher">
-            <select class="form-control"></select>
-        </div>
-    </div>
-    <div class="recap">
-        {% for info in recap_data %}
-        <div class="info-container">
-            <img src="files/img-{{info[2]}}.png" />
-            <div class="txt-info">
-                {{ info[1] }} Formations
-                <div class="sub-txt">{{ info[0] }}</div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</nav>
+{% include "lms/templates/navbar.html" %}
 <div class="main-content-div">
-    <section class="hb-side-bar">
-        <ul class="menu-main">
-            <li data-link="oadazk" class="{{ 'active' if tab=='dashboard' else '' }}"><img
-                    src="files/dashboard.png" />Tableau de bord</li>
-            <li data-link="" class="{{ 'active' if tab=='parcours' else '' }}"><img src="files/parcours.png" />Mon
-                parcours</li>
-            <li data-link="feasqda" class="{{ 'active' if tab=='courses' else '' }}"><img
-                    src="files/messessions.png" />Mes formations</li>
-            <li data-link="aozdlaz" class="{{ 'active' if tab=='quiz' else '' }}"><img src="files/certificat.png" />Mes
-                certificats</li>
-            <li data-link="Solidity" class="{{ 'active' if tab=='librarie' else '' }}"><img
-                    src="files/biblio.png" />Bibliothèque</li>
-            <li data-link="forum" class="{{ 'active' if tab=='forum' else '' }}"><img src="files/forum.png" />Forum</li>
-        </ul>
-        <ul class="menu-footer">
-            <li>Paramétres</li>
-            <li>Déconnexion</li>
-        </ul>
-    </section>
+    {% include "lms/templates/side_bar/side_bar.html" %}
     <section class="main-content">
         {% if tab == 'parcours' %}
         <div id="parcours">
@@ -150,7 +81,7 @@ Mon profil
                             {% endif %}
                             <span class="number">{{count.value}}</span>
                             <span class="training-type"><img src="/files/local.png" />{{item.classroom}}</span>
-                            {% if item.status == 'Completed' %}
+                            {% if item.status == 'Completed' or item.status == 'Completed (R)'%}
                             <img src="/files/completed.png" />
                             {% elif item.status == 'Started' %}
                             <span class="span_status">EN COURS</span>

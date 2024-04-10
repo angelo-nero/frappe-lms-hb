@@ -3,7 +3,7 @@
 	<ul class="alert alert-info pl-8">
 
 		<li>
-			{{ _("This quiz consists of {0} questions.").format(quiz.questions | length) }}
+			{{ _("This quiz consists of {0} questions.").format(quiz.nbr_question) }}
 		</li>
 
 		{% if quiz.passing_percentage %}
@@ -161,7 +161,8 @@
 			<div class="grid-row">
 				<div class="data-row row">
 					<div class="col grid-static-col col-xs-1">{{ loop.index }}</div>
-					<div class="col grid-static-col text-right">{{ submission.score }}</div>
+					<div class="col grid-static-col text-right">{{ submission.score }} / {{ submission.score_out_of }}
+					</div>
 					<div class="col grid-static-col" title="{{ frappe.utils.format_datetime(submission.creation, "
 						medium") }}">
 						{{ frappe.utils.pretty_date(submission.creation) }}

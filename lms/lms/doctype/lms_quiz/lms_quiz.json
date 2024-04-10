@@ -9,6 +9,7 @@
  "field_order": [
   "title",
   "show_answers",
+  "nbr_question",
   "column_break_gaac",
   "max_attempts",
   "show_submission_history",
@@ -48,7 +49,7 @@
    "options": "Course Lesson"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "max_attempts",
    "fieldtype": "Int",
    "label": "Max Attempts"
@@ -129,11 +130,18 @@
    "label": "Coefficient",
    "non_negative": 1,
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "nbr_question",
+   "fieldtype": "Int",
+   "label": "Nbr de questions",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-29 10:53:06.704319",
+ "modified": "2024-04-04 12:04:13.898983",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Quiz",

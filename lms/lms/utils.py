@@ -776,8 +776,7 @@ def get_filtered_membership(course, memberships):
 
 
 def show_start_learing_cta(course, membership):
-
-	if course.disable_self_learning or course.upcoming:
+	if course.upcoming:
 		return False
 	if is_instructor(course.name):
 		return False
@@ -786,7 +785,8 @@ def show_start_learing_cta(course, membership):
 	if not has_lessons(course):
 		return False
 	if not membership:
-		return True
+		return False
+	return True
 
 
 def has_lessons(course):

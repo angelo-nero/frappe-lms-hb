@@ -11,10 +11,10 @@
 
     <div class="mb-2">
         <span>
-            {{ chapters | length }} chapters
+            {{ chapters | length }} {{ _("chapters") }}
         </span>
         <span>
-            . {{ get_lessons(course.name, None, False) }} lessons
+            . {{ get_lessons(course.name, None, False) }} {{ _("lessons") }}
         </span>
     </div>
     {% endif %}

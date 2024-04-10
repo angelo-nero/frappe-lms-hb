@@ -75,12 +75,13 @@
    "default": "0",
    "fieldname": "is_closed",
    "fieldtype": "Check",
+   "hidden": 1,
    "label": "Termin\u00e9e ?"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-31 08:51:50.348006",
+ "modified": "2024-04-09 13:16:51.259660",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Class",

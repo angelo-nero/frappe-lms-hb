@@ -1,6 +1,7 @@
 # Copyright (c) 2021, FOSS United and contributors
 # For license information, please see license.txt
 
+import json
 import frappe
 from frappe import _
 from frappe.model.document import Document
@@ -86,3 +87,23 @@ def update_current_membership(batch, course, member):
 	)
 	if len(current_membership):
 		frappe.db.set_value("LMS Enrollment", current_membership[0].name, "is_current", 1)
+
+
+@frappe.whitelist()
+def catch_up(doc):
+	class_data = json.loads(doc)
+	doc = frappe.get_doc("LMS Enrollment", class_data['name'])
+	career = frappe.get_doc("LMS User Career", {"user_c": doc.member, "status": "Current" })
+	user_trainning = frappe.get_doc("LMS User Training", {"parent": career.name, "training": doc.course })
+	
+	if user_trainning.status == "Failed" and doc.progress == 100:
+		doc.session_type = 'Rattrapage'
+		doc.ex_note = user_trainning.note
+		doc.save(ignore_permissions=True)
+		frappe.db.sql("UPDATE `tabLMS Course Progress` set status = 'Rattrapage' where member = %(user_c)s and course = %(name)s;", values={"user_c": doc.member, "name": doc.course}, as_dict=0)    
+		frappe.db.sql("UPDATE `tabLMS Quiz Submission` set catchup = 1 where member = %(user_c)s and course = %(name)s;", values={"user_c": doc.member, "name": doc.course}, as_dict=0)    
+		return "OK"
+	else:
+		frappe.throw(
+				_("Désolé, l'opération n'a pu être effectuée.")
+			)

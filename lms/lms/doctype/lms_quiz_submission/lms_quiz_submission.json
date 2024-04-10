@@ -18,7 +18,7 @@
   "passing_percentage",
   "section_break_6",
   "result",
-  "catchip"
+  "catchup"
  ],
  "fields": [
   {
@@ -109,15 +109,16 @@
   },
   {
    "default": "0",
-   "fieldname": "catchip",
+   "fieldname": "catchup",
    "fieldtype": "Check",
-   "label": "Rattrapage"
+   "label": "Archiv\u00e9",
+   "read_only": 1
   }
  ],
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-30 11:24:39.565914",
+ "modified": "2024-04-01 08:51:02.169626",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Quiz Submission",
