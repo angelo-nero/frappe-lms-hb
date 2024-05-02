@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-22 15:14:59.514309",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "training",
+  "status",
+  "can_read",
+  "catchup",
+  "note"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "training",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Cours",
+   "options": "LMS Course"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "Not started",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Statut",
+   "options": "Not started\nStarted\nCompleted\nFailed\nCompleted (R)"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "can_read",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Peut lire ?"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "catchup",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Rattrapage"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Note",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-02 10:47:23.932900",
+ "modified_by": "Administrator",
+ "module": "LMS",
+ "name": "LMS User Training",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

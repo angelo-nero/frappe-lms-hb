@@ -1,0 +1,78 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-26 12:49:59.138084",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "label",
+  "img",
+  "order_show",
+  "stage_report",
+  "technic_doc",
+  "inter_pub"
+ ],
+ "fields": [
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Titre",
+   "reqd": 1
+  },
+  {
+   "fieldname": "img",
+   "fieldtype": "Attach",
+   "label": "Image"
+  },
+  {
+   "fieldname": "order_show",
+   "fieldtype": "Int",
+   "label": "Ordre"
+  },
+  {
+   "fieldname": "stage_report",
+   "fieldtype": "Table",
+   "label": "Rapports de stage",
+   "options": "LMS Biblio file"
+  },
+  {
+   "fieldname": "technic_doc",
+   "fieldtype": "Table",
+   "label": "Document technique",
+   "options": "LMS Biblio file"
+  },
+  {
+   "fieldname": "inter_pub",
+   "fieldtype": "Table",
+   "label": "Publication internationales",
+   "options": "LMS Biblio file"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-02 10:48:52.311795",
+ "modified_by": "Administrator",
+ "module": "LMS",
+ "name": "LMS Bibliotheques",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

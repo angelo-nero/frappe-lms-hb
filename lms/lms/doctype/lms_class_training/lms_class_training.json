@@ -1,33 +1,31 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:student",
- "creation": "2024-01-22 22:04:15.067203",
- "default_view": "List",
+ "autoname": "format:{#####}-{training}",
+ "creation": "2024-01-22 21:37:47.184758",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "student"
+  "training"
  ],
  "fields": [
   {
-   "fieldname": "student",
+   "fieldname": "training",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Apprenant",
-   "options": "User",
-   "unique": 1
+   "label": "Cours",
+   "options": "LMS Course"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-05-02 10:48:39.132887",
+ "modified": "2024-05-02 10:48:45.473101",
  "modified_by": "Administrator",
  "module": "LMS",
- "name": "LMS Class Student",
- "naming_rule": "By fieldname",
+ "name": "LMS Class Training",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",
