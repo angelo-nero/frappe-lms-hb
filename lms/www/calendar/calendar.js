@@ -41,7 +41,9 @@ function createCalendar(year, month) {
                 let isWeekend = fullDate.getDay() === 0 || fullDate.getDay() === 6;
                 table += `<td class='${isWeekend ? "weekend" : ""}'>
                 <span class='day'>${day++}</span>
-                <span class='desc'>${isTaggedDate(fullDate)}</span>
+                <div class='desc'>
+                    ${isTaggedDate(fullDate)}
+                </div>
             </td>`;
             } else {
                 table += `<td class='over-day'></td>`;
@@ -55,9 +57,18 @@ function createCalendar(year, month) {
 
 function isTaggedDate(date) {
     let description = ''
+    const dateWithoutTime = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // Strip time components
     taggedDateRanges.forEach(range => {
-        if (date >= range.start && date <= range.end) {
-            description += '- ' + range.description + '<br/>';
+        const rangeStartWithoutTime = new Date(range.start.getFullYear(), range.start.getMonth(), range.start.getDate());
+        const rangeEndWithoutTime = new Date(range.end.getFullYear(), range.end.getMonth(), range.end.getDate());
+
+        if (dateWithoutTime >= rangeStartWithoutTime && dateWithoutTime <= rangeEndWithoutTime) {
+            description += `<div class="desc-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle feather feather-circle shrink-0 h-4 text-black h-4 text-black"><circle cx="12" cy="12" r="10"></circle></svg>
+                        <div class="flex flex-col whitespace-nowrap overflow-hidden">
+                            <p class="font-medium text-sm text-gray-800 text-ellipsis">${range.description}</p>
+                        </div>
+                    </div>`;
         }
     });
 

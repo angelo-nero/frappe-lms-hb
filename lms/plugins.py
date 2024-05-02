@@ -159,7 +159,7 @@ def quiz_renderer(quiz_name):
 			["name", "score", "score_out_of", "creation"],
 			order_by="creation desc",
 		)
-
+	print(quiz)
 	return frappe.render_template(
 		"templates/quiz/quiz.html",
 		{

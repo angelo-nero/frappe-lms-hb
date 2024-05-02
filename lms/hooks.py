@@ -210,7 +210,8 @@ website_route_rules = [
 
 website_redirects = [
 	{"source": "/update-profile", "target": "/edit-profile"},
-	{"source": "/dashboard", "target": "/courses"},
+	{"source": "/dashboard", "target": "/parcours?xsaoaz=oadazk"},
+	{"source": "/courses", "target": "/parcours?xsaoaz=oadazk"},
 	{"source": "/community", "target": "/people"},
 ]
 

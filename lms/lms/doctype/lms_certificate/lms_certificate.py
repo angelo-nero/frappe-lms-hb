@@ -13,9 +13,9 @@ class LMSCertificate(Document):
 	def validate(self):
 		self.validate_duplicate_certificate()
 
-	def after_insert(self):
-		if not frappe.flags.in_test:
-			self.send_mail()
+	# def after_insert(self):
+	# 	if not frappe.flags.in_test:
+	# 		self.send_mail()
 
 	def send_mail(self):
 		subject = _("Congratulations on getting certified!")

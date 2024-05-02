@@ -366,12 +366,10 @@ span.day {
 }
 
 #calendar td .desc {
-    display: block;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #4C5A67;
-    text-align: left;
+    display: flex;
+    background-color: #eef6fd;
+    padding: 5px;
+    border-radius: 9px;
 }
 
 span#currentMonthYear {
@@ -387,4 +385,26 @@ span#currentMonthYear {
     padding: 15px 0;
     color: #0d438e;
     margin-left: 22px;
+}
+
+.desc-content {
+    color: black;
+    border-left: 2px solid #007be0;
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    padding: 0 5px;
+}
+
+.desc-content svg {
+    height: 1rem;
+}
+
+p.font-medium.text-sm.text-gray-800.text-ellipsis {
+    --tw-text-opacity: 1;
+    color: rgb(56 56 56 / var(--tw-text-opacity));
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.15;
+    letter-spacing: .02em;
 }

@@ -99,6 +99,8 @@ WHERE luc.user_c = %(user_e)s and lut.status = 'Failed'""", values=values, as_di
 				context.next_url = ""
 			elif not neighbours["next"]:
 				context.next_id = "endAndCert"
+		elif not neighbours["prev"] and not neighbours["next"]:
+			context.next_id = "endAndCert" 
 			
 
 	meta_info = (

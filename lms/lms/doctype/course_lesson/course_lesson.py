@@ -133,6 +133,7 @@ def save_progress(lesson, course, status):
 		final_note = get_final_note(course)
 		status = "Failed"
 		if final_note>= passing_percentage:
+
 			if session_type == "Rattrapage":
 				status = "Completed (R)"
 			else:
@@ -165,6 +166,23 @@ def set_user_career_course(course, status, final_note):
 	if final_note > -1:
 		user_trainning.note = final_note
 	user_trainning.status = status
+	filters = {"parent": career.name, "idx": user_trainning.idx+1 }
+	if frappe.db.exists("LMS User Training", filters):
+		next_user_trainning = frappe.get_doc("LMS User Training", filters)
+		open_next = get_next_training_presentiel_status(career.name, next_user_trainning.training)
+		if not open_next:
+			try:
+				frappe.get_doc(
+				{
+					"doctype": "LMS Enrollment",
+					"course": next_user_trainning.training,
+					"role": 'Member',
+					"member_type": 'Student',
+					"member": frappe.session.user,
+				}
+			).save(ignore_permissions=True)
+			except Exception as e:
+				pass
 	user_trainning.save(ignore_permissions=True)
 
 
@@ -172,3 +190,13 @@ def set_user_career_course(course, status, final_note):
 def get_lesson_info(chapter):
 	return frappe.db.get_value("Course Chapter", chapter, "course")
 
+def get_next_training_presentiel_status(user_career, user_trainning):
+	user_career = frappe.get_doc("LMS User Career", {"name": user_career})
+	values = {"training": user_trainning, "career": user_career.career}
+	data = frappe.db.sql("""select is_classroom from `tabLMS Career Training` ct
+join `tabLMS Training` t on t.parent = ct.name
+where t.parenttype = 'LMS Career Training'  and ct.career = %(career)s and t.course = %(training)s""", values=values, as_dict=1)
+	if len(data)==0:
+		return 1
+	else:
+		return data[0].is_classroom

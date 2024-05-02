@@ -45,7 +45,7 @@
   {
    "fieldname": "lesson",
    "fieldtype": "Link",
-   "label": "Lesson",
+   "label": "S\u00e9quence",
    "options": "Course Lesson"
   },
   {
@@ -63,7 +63,7 @@
   {
    "fieldname": "course",
    "fieldtype": "Link",
-   "label": "Course",
+   "label": "Formation",
    "options": "LMS Course"
   },
   {
@@ -141,7 +141,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-04 12:04:13.898983",
+ "modified": "2024-04-26 11:30:31.564276",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Quiz",

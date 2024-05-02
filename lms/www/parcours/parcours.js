@@ -98,8 +98,9 @@ function createCalendar(year, month) {
 }
 
 function isTaggedDate(date) {
+    const dateWithoutTime = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // Strip time components
     return taggedDateRanges.some(range =>
-        date >= range.start && date <= range.end
+        dateWithoutTime >= new Date(range.start.getFullYear(), range.start.getMonth(), range.start.getDate()) && dateWithoutTime <= new Date(range.end.getFullYear(), range.end.getMonth(), range.end.getDate())
     );
 }
 
