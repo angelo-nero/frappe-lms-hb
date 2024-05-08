@@ -139,3 +139,107 @@ def add_mentor_to_subgroup(subgroup, email):
 
 	sg.add_mentor(email)
 	return {"ok": True}
+
+
+@frappe.whitelist()
+def get_course_schedule_for_student():
+	email = frappe.session.user
+	if email == "Administrator":
+		return
+	student_info = frappe.db.get_list(
+		"Student",
+		fields=["*"],
+		filters={"user": email},
+	)[0]
+
+	current_program = get_current_enrollment(student_info.name)
+	if current_program:
+		student_groups = get_student_groups(student_info.name, current_program)
+		return get_course_schedule_for_student_res(current_program, student_groups)
+	return None
+
+
+@frappe.whitelist()
+def get_current_enrollment(student, academic_year=None):
+	current_academic_year = academic_year or frappe.defaults.get_defaults().academic_year
+	if not current_academic_year:
+		frappe.throw(_("Please set default Academic Year in Education Settings"))
+	program_enrollment_list = frappe.db.sql(
+		"""
+		select
+			name as program_enrollment, student_name, program, student_batch_name as student_batch,
+			student_category, academic_term, academic_year
+		from
+			`tabProgram Enrollment`
+		where
+			student = %s and academic_year = %s
+		order by creation""",
+		(student, current_academic_year),
+		as_dict=1,
+	)
+
+	if program_enrollment_list:
+		return program_enrollment_list[0].program
+	else:
+		return None
+
+def get_student_groups(student, program_name):
+	# student = 'EDU-STU-2023-00043'
+
+	student_group = frappe.qb.DocType("Student Group")
+	student_group_students = frappe.qb.DocType("Student Group Student")
+
+	student_group_query = (
+		frappe.qb.from_(student_group)
+		.inner_join(student_group_students)
+		.on(student_group.name == student_group_students.parent)
+		.select((student_group_students.parent).as_("label"))
+		.where(student_group_students.student == student)
+		.where(student_group.program == program_name)
+		.run(as_dict=1)
+	)
+
+	return student_group_query
+
+@frappe.whitelist()
+def get_attendance_schedule_for_student():
+	email = frappe.session.user
+	if email == "Administrator":
+		return
+	student_info = frappe.db.get_list(
+		"Student",
+		fields=["*"],
+		filters={"user": email},
+	)[0]
+
+	current_program = get_current_enrollment(student_info.name)
+	if current_program:
+		student_groups = get_student_groups(student_info.name, current_program)
+		return  frappe.db.get_list(
+			"Student Attendance",
+			fields=["date", "status", "name"],
+			filters={"docstatus": 1, "student": student_info.name,  "student_group": student_groups[0].get("label") },
+		)
+	return None
+
+@frappe.whitelist()
+def get_course_schedule_for_student_res(program_name, student_groups):
+	student_groups = [sg.get("label") for sg in student_groups]
+
+	schedule = frappe.db.get_list(
+		"Course Schedule",
+		fields=[
+			"schedule_date",
+			"room",
+			"class_schedule_color",
+			"course",
+			"from_time",
+			"to_time",
+			"instructor",
+			"title",
+			"name",
+		],
+		filters={"program": program_name, "student_group": ["in", student_groups]},
+		order_by="schedule_date asc",
+	)
+	return schedule

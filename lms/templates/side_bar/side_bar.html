@@ -1,19 +1,66 @@
 <section class="hb-side-bar">
     <ul class="menu-main">
-        <li data-link="oadazk" class="{{ 'active' if tab=='dashboard' else '' }}"><img
-                src="/files/dashboard.png" />Tableau de bord</li>
-        <li data-link="" class="{{ 'active' if tab=='parcours' else '' }}"><img src="/files/parcours.png" />Mon
-            parcours</li>
-        <li data-link="feasqda" class="{{ 'active' if tab=='courses' else '' }}"><img src="/files/messessions.png" />Mes
-            formations</li>
-        <li data-link="qsazae" class="{{ 'active' if tab=='standards' else '' }}"><img
-                src="/files/messessions.png" />Mes
-            standards opérationnels</li>
-        <li data-link="aozdlaz" class="{{ 'active' if tab=='quiz' else '' }}"><img src="/files/certificat.png" />Mes
-            certificats</li>
-        <li data-link="Solidity" class="{{ 'active' if tab=='librarie' else '' }}"><img
-                src="/files/biblio.png" />Bibliothèque</li>
-        <li data-link="forum" class="{{ 'active' if tab=='forum' else '' }}"><img src="/files/forum.png" />Forum</li>
+        <li data-link="oadazk" class="{{ 'active' if tab=='dashboard' else '' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="h-4.5 w-4.5 icon-hurouf">
+                <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+            </svg>
+            Tableau de bord
+        </li>
+        <li data-link="calendar" class="{{ 'active' if tab=='calendar' else '' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="h-4.5 w-4.5 icon-hurouf">
+                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                <line x1="16" x2="16" y1="2" y2="6"></line>
+                <line x1="8" x2="8" y1="2" y2="6"></line>
+                <line x1="3" x2="21" y1="10" y2="10"></line>
+                <path d="m9 16 2 2 4-4"></path>
+            </svg>
+            Mon calendrier
+        </li>
+        <li data-link="" class="{{ 'active' if tab=='parcours' else '' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="h-4.5 w-4.5 icon-hurouf">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+            Mon parcours
+        </li>
+        <li data-link="attendance" class="{{ 'active' if tab=='attendance' else '' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="h-4.5 w-4.5 icon-hurouf">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <polyline points="16 11 18 13 22 9"></polyline>
+            </svg>
+            Présence
+        </li>
+        <li data-link="aozdlaz" class="{{ 'active' if tab=='quiz' else '' }}">
+            <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <g id="Layer_2" data-name="Layer 2">
+                    <g id="invisible_box" data-name="invisible box">
+                        <rect width="48" height="48" fill="none" />
+                        <rect width="48" height="48" fill="none" />
+                    </g>
+                    <g id="icons_Q2" data-name="icons Q2">
+                        <g>
+                            <path d="M20,39H6V9H40a2,2,0,0,0,0-4H4A2,2,0,0,0,2,7V41a2,2,0,0,0,2,2H20a2,2,0,0,0,0-4Z" />
+                            <path
+                                d="M46,24A13,13,0,0,0,33,11a12.8,12.8,0,0,0-8.3,3H12a2,2,0,0,0,0,4h9.5a11.1,11.1,0,0,0-1.3,4H12a2,2,0,0,0,0,4h8.2a11.1,11.1,0,0,0,1.3,4H12a2,2,0,0,0,0,4H24.7l1.3.9v9.7A2.3,2.3,0,0,0,28,47a1.8,1.8,0,0,0,1.3-.6L33,43l3.7,3.4A1.8,1.8,0,0,0,38,47a2.3,2.3,0,0,0,2-2.4V35A13.2,13.2,0,0,0,46,24ZM36,32.5v7.8l-3-2.8-3,2.8V32.5A9.1,9.1,0,0,1,24,24a9,9,0,0,1,18,0A9.1,9.1,0,0,1,36,32.5Z" />
+                            <circle cx="33" cy="24" r="5" />
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            Mes certificats
+        </li>
     </ul>
     <ul class="menu-footer">
         <li>Paramétres</li>
@@ -25,7 +72,7 @@
         width: 200px;
         min-height: 100vh;
         padding-top: 20px;
-        background: #d2edfc;
+        background: #FFD9CF;
     }
 
     .hb-side-bar ul {
@@ -41,7 +88,7 @@
         margin: 30px 0;
         line-height: 30px;
         cursor: pointer;
-        color: #0b438e;
+        color: #263439;
         display: flex;
         justify-content: left;
         align-items: center;
@@ -51,9 +98,9 @@
         font-weight: bolder;
     }
 
-    .hb-side-bar .menu-main img {
-        width: 24px;
-        margin-right: 12px;
+    .hb-side-bar .menu-main svg {
+        color: white;
+        margin-right: 8px;
     }
 
     @media (max-width: 985px) {

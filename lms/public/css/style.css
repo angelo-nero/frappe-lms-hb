@@ -2505,3 +2505,8 @@ select {
 .toastui-calendar-weekday-event-block {
 	box-shadow: none !important;
 }
+
+nav.navbar,
+.web-footer {
+	display: none;
+}

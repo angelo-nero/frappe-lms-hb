@@ -6,6 +6,10 @@ frappe.ready(() => {
     $(".menu-main > li").click((e) => {
         if (e.currentTarget.attributes['data-link'].value == 'forum')
             document.location.href = '/forum'
+        else if (e.currentTarget.attributes['data-link'].value == 'calendar')
+            document.location.href = '/calendar'
+        else if (e.currentTarget.attributes['data-link'].value == 'attendance')
+            document.location.href = '/attendance'
         else
             document.location.href = '/parcours?xsaoaz=' + e.currentTarget.attributes['data-link'].value
     });

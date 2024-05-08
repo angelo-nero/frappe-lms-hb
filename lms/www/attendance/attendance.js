@@ -70,14 +70,14 @@ function isTaggedDate(date, day) {
     const dateWithoutTime = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // Strip time components
     taggedDateRanges.forEach(range => {
         const rangeStartWithoutTime = new Date(range.start.getFullYear(), range.start.getMonth(), range.start.getDate());
-
+        console.log("dateWithoutTime", dateWithoutTime)
+        console.log("rangeStartWithoutTime", rangeStartWithoutTime)
         if (dateWithoutTime.getTime() == rangeStartWithoutTime.getTime()) {
             description += `<div class="calend-inf bg-${range.class_schedule_color}">
                                 <div class="border-${range.class_schedule_color}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle feather feather-circle shrink-0 h-4 text-black h-4 text-black"><circle cx="12" cy="12" r="10"></circle></svg>
                                     <div class="descr">
                                         <p class="pp-1">${range.description}</p>
-                                        <p class="pp-2">${range.from_time} - ${range.to_time}</p>
                                     </div>
                                 </div>
                             </div>`;
@@ -97,12 +97,12 @@ function updateCalendar() {
     let lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1);
 
     frappe.call({
-        method: "lms.lms.api.get_course_schedule_for_student",
+        method: "lms.lms.api.get_attendance_schedule_for_student",
         type: "GET",
         callback: function (r) {
             r.message.forEach(item => {
-                const startDate = new Date(item.schedule_date);
-                taggedDateRanges.push({ start: startDate, from_time: item.from_time, to_time: item.to_time, description: item.title, class_schedule_color: item.class_schedule_color });
+                const startDate = new Date(item.date);
+                taggedDateRanges.push({ start: startDate, description: item.status, class_schedule_color: item.status == "Present" ? "green" : "orange" });
             });
             document.getElementById("calendar").innerHTML = createCalendar(currentYear, currentMonth);
         },

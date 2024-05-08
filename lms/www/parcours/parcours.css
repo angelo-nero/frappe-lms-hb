@@ -1,16 +1,16 @@
 @font-face {
 	font-family: "ITC BOLD";
-	src: url("/files/ITCAvantGardeStdBold.otf");
+	src: url("/assets/lms/css/ITCAvantGardeStdBold.otf");
 }
 
 @font-face {
 	font-family: "ITC NRM";
-	src: url("/files/ITCAvantGardeStdBk.otf");
+	src: url("/assets/lms/css/ITCAvantGardeStdBk.otf");
 }
 
 @font-face {
 	font-family: "ITC MD";
-	src: url("/files/ITCAvantGardeStdMd.otf");
+	src: url("/assets/lms/css/ITCAvantGardeStdMd.otf");
 }
 
 .txt-welcome {
@@ -42,7 +42,7 @@ ul.menu-footer {
 
 @font-face {
 	font-family: "Montserrat";
-	src: url("/files/Montserrat-Regular.ttf");
+	src: url("/assets/lms/css/Montserrat-Regular.ttf");
 }
 
 
@@ -67,12 +67,13 @@ ul.menu-footer {
 }
 
 .module-training {
-	background: #eaf6fe;
+	background: #f8f8f8;
 	padding: 20px 20px 0 12px;
 	margin-left: 8px;
 	flex-flow: wrap;
 	flex: 1;
 	place-content: baseline;
+	border-radius: 10px;
 }
 
 .module-trainig-item {
@@ -726,22 +727,7 @@ div#courses .standard-image {
 	height: 30px;
 }
 
-a.navbar-brand span {
-	display: block;
-	color: white;
-	font-weight: bold;
-	font-family: Montserrat;
-}
 
-a.navbar-brand span:nth-child(2) {
-	color: #ababab;
-	font-size: small;
-}
-
-.navbar-light {
-	border-bottom: unset;
-	background: #0b438e;
-}
 
 .module-content {
 	display: flex;
@@ -763,7 +749,7 @@ a.navbar-brand span:nth-child(2) {
 }
 
 .module-item.module-item-active {
-	background: #2298d6;
+	background: #e48099;
 }
 
 .module-item-parent:has(> div.module-item-active) {
