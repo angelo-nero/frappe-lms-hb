@@ -1,0 +1,130 @@
+{
+ "actions": [],
+ "autoname": "format:{nameid}",
+ "creation": "2024-05-15 22:07:58.677503",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "nameid",
+  "years_of_experience",
+  "islamic_courses",
+  "tilmid_pack_price",
+  "talib_pack_price",
+  "mojtahid_pack_price",
+  "video_why_chosing",
+  "column_break_ebmg",
+  "free_session_url",
+  "satisfied_parents",
+  "dedicated_teachers",
+  "tilmid_pack_url",
+  "talib_pack_url",
+  "mojtahid_pack_url",
+  "video_discover_values"
+ ],
+ "fields": [
+  {
+   "fieldname": "free_session_url",
+   "fieldtype": "Data",
+   "label": "Free session url"
+  },
+  {
+   "fieldname": "years_of_experience",
+   "fieldtype": "Data",
+   "label": "Years of experience"
+  },
+  {
+   "fieldname": "satisfied_parents",
+   "fieldtype": "Data",
+   "label": "Satisfied parents"
+  },
+  {
+   "fieldname": "islamic_courses",
+   "fieldtype": "Data",
+   "label": "Islamic courses"
+  },
+  {
+   "fieldname": "dedicated_teachers",
+   "fieldtype": "Data",
+   "label": "Dedicated teachers"
+  },
+  {
+   "fieldname": "tilmid_pack_price",
+   "fieldtype": "Data",
+   "label": "Tilmid pack price"
+  },
+  {
+   "fieldname": "talib_pack_price",
+   "fieldtype": "Data",
+   "label": "Talib pack price"
+  },
+  {
+   "fieldname": "mojtahid_pack_price",
+   "fieldtype": "Data",
+   "label": "Mojtahid pack price"
+  },
+  {
+   "fieldname": "tilmid_pack_url",
+   "fieldtype": "Data",
+   "label": "Tilmid pack url"
+  },
+  {
+   "fieldname": "talib_pack_url",
+   "fieldtype": "Data",
+   "label": "Talib pack url"
+  },
+  {
+   "fieldname": "mojtahid_pack_url",
+   "fieldtype": "Data",
+   "label": "Mojtahid pack url"
+  },
+  {
+   "fieldname": "column_break_ebmg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "HOME",
+   "fieldname": "nameid",
+   "fieldtype": "Data",
+   "label": "ID_NAME",
+   "no_copy": 1,
+   "read_only": 1,
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "video_why_chosing",
+   "fieldtype": "Data",
+   "label": "Video why chosing"
+  },
+  {
+   "fieldname": "video_discover_values",
+   "fieldtype": "Data",
+   "label": "Video discover values"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-16 11:24:36.295176",
+ "modified_by": "Administrator",
+ "module": "LMS",
+ "name": "LMS Home data",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
